@@ -20,9 +20,10 @@ tabularium/
 │   ├── env/                 # Server and browser environment validation
 │   └── ui/                  # Shared UI primitives, styles, hooks, and utilities
 ├── docs/                         # Architecture, decisions, guides, and project policies
+│   ├── CLAUDE.md                # Claude-specific working rules
+│   ├── CODEX.md                 # Codex-specific working rules
+│   └── HOW-IT-WORKS.md          # Architecture and runtime flow
 ├── .github/                      # CI workflows and GitHub templates, when added
-├── CLAUDE.md                    # Claude-specific working rules
-├── CODEX.md                     # Codex-specific working rules
 ├── README.md                    # Project overview and onboarding
 ├── package.json                 # Root scripts and workspace dependencies
 ├── pnpm-workspace.yaml          # Workspace packages and dependency catalog
@@ -42,6 +43,9 @@ Organization rules:
 - Never store secrets in `config/`, fixtures, examples, logs, or documentation.
 - Do not create empty directories in advance. Add each directory when it has a real responsibility.
 - Before creating a new file or directory, check whether an equivalent one already exists and reuse or extend it instead of duplicating structure.
+- Keep only `README.md` at the repository root. Every other Markdown document belongs in `docs/`; do not create per-app READMEs or instruction files.
+- Keep a single local `.env` and its secret-free `.env.example` at the repository root. Do not create environment files inside individual workspaces unless the architecture is deliberately changed and documented.
+- Keep framework and package boundary files beside the workspace they configure. Files such as `apps/web/package.json`, `next.config.ts`, `tsconfig.json`, `postcss.config.mjs`, `components.json`, and `.gitignore` are not loose project documents and must remain at the app root.
 
 ### Layer-based vs. feature-based organization
 

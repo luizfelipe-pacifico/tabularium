@@ -1,10 +1,12 @@
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import dotenv from "dotenv";
 import { defineConfig, env } from "prisma/config";
 
 dotenv.config({
-  path: "../../apps/web/.env",
+  path: fileURLToPath(new URL("../../.env", import.meta.url)),
+  quiet: true,
 });
 
 export default defineConfig({

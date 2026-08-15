@@ -25,7 +25,7 @@ pnpm install
 This project uses PostgreSQL with Prisma.
 
 1. Make sure you have a PostgreSQL database set up.
-2. Update your `apps/web/.env` file with your PostgreSQL connection details.
+2. Copy `.env.example` to `.env` in the repository root and fill in your PostgreSQL connection details. The root `.env` is the only local environment file used by the workspace.
 
 3. Apply the schema to your database:
 
@@ -73,14 +73,13 @@ If you want to add app-specific blocks instead of shared primitives, run the sha
 tabularium/
 ├── apps/
 │   └── web/         # Full-stack Next.js application
-├── docs/                # Engineering and branding documentation
+├── docs/                # All project documentation except this README
 ├── packages/
 │   ├── config/      # Shared TypeScript configuration
 │   ├── db/          # Prisma schema and database client
 │   ├── env/         # Validated environment variables
 │   └── ui/          # Shared shadcn/ui components and styles
-├── CLAUDE.md           # Claude operating instructions
-├── CODEX.md            # Codex operating instructions
+├── .env.example         # Secret-free environment variable template
 ├── pnpm-workspace.yaml # Workspace and dependency catalog
 └── turbo.json          # Monorepo task pipeline
 ```
@@ -89,6 +88,10 @@ tabularium/
 
 - [Development best practices](docs/BEST_PRACTICES.md)
 - [Brand and interface guidelines](docs/BRANDING.md)
+- [How the system works](docs/HOW-IT-WORKS.md)
+- [Claude working instructions](docs/CLAUDE.md)
+- [Codex working instructions](docs/CODEX.md)
+- [Next.js agent rules](docs/NEXTJS-AGENT-RULES.md)
 
 ## Available Scripts
 
