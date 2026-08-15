@@ -1,77 +1,90 @@
-# Tabularium
+# tabularium
 
-> Repositório do sistema Tabularium, atualmente em fase inicial de planejamento e estruturação.
+This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines Next.js, Self, and more.
 
-## Sobre o projeto
+## Features
 
-O Tabularium está sendo preparado para receber a implementação, a documentação técnica e as definições de produto. Neste momento, o repositório funciona como ponto de partida para a evolução do sistema.
+- **TypeScript** - For type safety and improved developer experience
+- **Next.js** - Full-stack React framework
+- **TailwindCSS** - Utility-first CSS for rapid UI development
+- **Shared UI package** - shadcn/ui primitives live in `packages/ui`
+- **Prisma** - TypeScript-first ORM
+- **PostgreSQL** - Database engine
+- **Turborepo** - Optimized monorepo build system
 
-As funcionalidades, a arquitetura e a stack tecnológica serão documentadas aqui à medida que forem definidas.
+## Getting Started
 
-## Status
+First, install the dependencies:
 
-🚧 **Em desenvolvimento inicial**
-
-O projeto ainda não possui uma versão executável nem uma release publicada.
-
-## Objetivos
-
-- Centralizar o desenvolvimento do sistema Tabularium.
-- Manter as decisões técnicas e instruções de uso documentadas.
-- Facilitar a colaboração e o acompanhamento da evolução do projeto.
-
-## Estrutura atual
-
-```text
-tabularium/
-├── .docs/       # Documentação complementar do projeto
-├── .claude.md   # Orientações para o Claude
-├── .codex.md    # Orientações para o Codex
-├── .gitignore   # Arquivos e diretórios não versionados
-└── README.md    # Visão geral e orientações do projeto
+```bash
+pnpm install
 ```
 
-Consulte o [guia de boas práticas](.docs/BOAS_PRATICAS.md) antes de contribuir.
+## Database Setup
 
-O arquivo `.env` é local e não é enviado ao repositório. Quando o projeto passar a exigir variáveis de ambiente, um arquivo `.env.example`, sem segredos, deverá documentar as chaves necessárias.
+This project uses PostgreSQL with Prisma.
 
-## Como começar
+1. Make sure you have a PostgreSQL database set up.
+2. Update your `apps/web/.env` file with your PostgreSQL connection details.
 
-Ainda não há dependências ou comandos de instalação definidos. Quando a stack for escolhida, esta seção incluirá:
+3. Apply the schema to your database:
 
-1. Pré-requisitos e versões suportadas.
-2. Instalação das dependências.
-3. Configuração das variáveis de ambiente.
-4. Execução local, testes e build.
+```bash
+pnpm run db:push
+```
 
-## Roadmap inicial
+Then, run the development server:
 
-- [ ] Definir o problema, o público e o escopo do produto.
-- [ ] Escolher a arquitetura e a stack tecnológica.
-- [ ] Criar a estrutura inicial da aplicação.
-- [ ] Documentar configuração, execução e testes.
-- [ ] Implementar e validar a primeira versão funcional.
-- [ ] Publicar a primeira release.
+```bash
+pnpm run dev
+```
 
-## Como contribuir
+Open [http://localhost:3001](http://localhost:3001) in your browser to see the fullstack application.
 
-Enquanto as diretrizes específicas não forem definidas:
+## UI Customization
 
-1. Abra uma issue descrevendo a proposta ou o problema.
-2. Crie uma branch a partir de `main`.
-3. Faça alterações pequenas e objetivas, acompanhadas de testes quando aplicável.
-4. Abra um pull request explicando o que mudou e como validar.
+React web apps in this stack share shadcn/ui primitives through `packages/ui`.
 
-Nunca inclua senhas, tokens, chaves de API ou outros dados sensíveis em commits.
+- Change design tokens and global styles in `packages/ui/src/styles/globals.css`
+- Update shared primitives in `packages/ui/src/components/*`
+- Adjust shadcn aliases or style config in `packages/ui/components.json` and `apps/web/components.json`
 
-## Suporte
+### Add more shared components
 
-Use as [issues do repositório](https://github.com/luizfelipe-pacifico/tabularium/issues) para relatar problemas, fazer perguntas ou sugerir melhorias.
+Run this from the project root to add more primitives to the shared UI package:
 
-## Autor e manutenção
+```bash
+npx shadcn@latest add accordion dialog popover sheet table -c packages/ui
+```
 
-Mantido por [Luiz Felipe Pacífico](https://github.com/luizfelipe-pacifico).
+Import shared components like this:
 
-## Licença
+```tsx
+import { Button } from "@tabularium/ui/components/button";
+```
 
-Nenhuma licença foi definida por enquanto. Até que um arquivo `LICENSE` seja adicionado, todos os direitos permanecem reservados ao autor.
+### Add app-specific blocks
+
+If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
+
+## Project Structure
+
+```
+tabularium/
+├── apps/
+│   └── web/         # Fullstack application (Next.js)
+├── packages/
+│   ├── ui/          # Shared shadcn/ui components and styles
+│   └── db/          # Database schema & queries
+```
+
+## Available Scripts
+
+- `pnpm run dev`: Start all applications in development mode
+- `pnpm run build`: Build all applications
+- `pnpm run dev:web`: Start only the web application
+- `pnpm run check-types`: Check TypeScript types across all apps
+- `pnpm run db:push`: Push schema changes to database
+- `pnpm run db:generate`: Generate database client/types
+- `pnpm run db:migrate`: Run database migrations
+- `pnpm run db:studio`: Open database studio UI
