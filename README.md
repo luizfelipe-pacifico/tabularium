@@ -25,9 +25,13 @@ O projeto ainda não possui uma versão executável nem uma release publicada.
 ```text
 tabularium/
 ├── .docs/       # Documentação complementar do projeto
-├── .gitignore  # Arquivos e diretórios não versionados
-└── README.md   # Visão geral e orientações do projeto
+├── .claude.md   # Orientações para o Claude
+├── .codex.md    # Orientações para o Codex
+├── .gitignore   # Arquivos e diretórios não versionados
+└── README.md    # Visão geral e orientações do projeto
 ```
+
+Consulte o [guia de boas práticas](.docs/BOAS_PRATICAS.md) antes de contribuir.
 
 O arquivo `.env` é local e não é enviado ao repositório. Quando o projeto passar a exigir variáveis de ambiente, um arquivo `.env.example`, sem segredos, deverá documentar as chaves necessárias.
 
