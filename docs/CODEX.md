@@ -2,7 +2,7 @@
 
 ## Start here
 
-Read, in order, the root `README.md`, `docs/HOW-IT-WORKS.md`, and `docs/BEST_PRACTICES.md` before changing the project. Read `docs/BRANDING.md` for interface work.
+Read, in order, the root `README.md`, `docs/HOW-IT-WORKS.md`, `docs/ARCHITECTURE.md`, and `docs/BEST_PRACTICES.md` before changing the project. Read `docs/BRANDING.md` for interface work, `docs/DATA_MODEL.md` before touching the schema, and `docs/SECURITY.md` before writing any authentication, API, or data-handling code — its rules are mandatory, not suggestions.
 
 ## Project context
 
