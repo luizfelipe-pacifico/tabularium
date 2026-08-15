@@ -39,6 +39,8 @@ tabularium/
 There is exactly one local `.env`, at the repository root. Create it from `.env.example`; never commit it or paste its values into documentation, logs, fixtures, or source code.
 
 - `DATABASE_URL` is required by the application and Prisma.
+- `HOSTNAME`, `PORT`, and `LOCAL_URL` define the local server at `http://localhost:3000`.
+- `NEXT_PUBLIC_APP_URL` defines the canonical public project URL (`https://tabularium.vercel.app`).
 - Additional PostgreSQL variables in `.env.example` support local tooling/providers but do not replace `DATABASE_URL`.
 - New variables must be added to `.env.example` with safe placeholders and validated in `packages/env` when consumed by application code.
 
@@ -47,7 +49,7 @@ There is exactly one local `.env`, at the repository root. Create it from `.env.
 | Command | Purpose |
 | --- | --- |
 | `pnpm install` | Install all workspace dependencies. |
-| `pnpm dev` | Start development tasks through Turborepo. |
+| `pnpm dev` | Start the root Next.js app at `http://localhost:3000`. |
 | `pnpm start` | Start the production server after a successful build. |
 | `pnpm check-types` | Type-check the root Next.js application. |
 | `pnpm build` | Create production builds. |
