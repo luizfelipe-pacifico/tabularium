@@ -4,30 +4,37 @@ This guide establishes the development baseline for Tabularium. It must evolve w
 
 ## Project organization
 
-Use a predictable structure and keep responsibilities separated. This stack-neutral target layout should be adapted only when the selected framework provides a stronger convention:
+Use the established pnpm and Turborepo monorepo structure. Keep deployable applications in `apps/`, reusable capabilities in `packages/`, and product documentation in `docs/`:
 
 ```text
 tabularium/
-├── docs/                 # Architecture, decisions, guides, and project policies
-│   └── BEST_PRACTICES.md
-├── src/                  # Production source code
-│   ├── modules/          # Business capabilities grouped by domain
-│   ├── shared/           # Reusable code with no domain ownership
-│   └── config/           # Versioned, non-secret application configuration
-├── tests/                # Integration, end-to-end, fixtures, and test helpers
-├── scripts/              # Repeatable development and maintenance scripts
-├── public/               # Static public assets, when applicable
-├── migrations/           # Versioned database migrations, when applicable
-├── .github/              # CI workflows and GitHub templates
-├── CLAUDE.md            # Claude-specific working rules
-├── CODEX.md             # Codex-specific working rules
-├── README.md            # Project overview and onboarding
-└── .gitignore           # Files excluded from version control
+├── apps/
+│   └── web/                 # Full-stack Next.js application
+│       └── src/
+│           ├── app/         # App Router pages, layouts, and route boundaries
+│           ├── components/  # Components owned only by the web application
+│           └── modules/     # Future business capabilities, grouped by domain
+├── packages/
+│   ├── config/              # Shared TypeScript configuration
+│   ├── db/                  # Prisma schema, migrations, and database client
+│   ├── env/                 # Server and browser environment validation
+│   └── ui/                  # Shared UI primitives, styles, hooks, and utilities
+├── docs/                         # Architecture, decisions, guides, and project policies
+├── .github/                      # CI workflows and GitHub templates, when added
+├── CLAUDE.md                    # Claude-specific working rules
+├── CODEX.md                     # Codex-specific working rules
+├── README.md                    # Project overview and onboarding
+├── package.json                 # Root scripts and workspace dependencies
+├── pnpm-workspace.yaml          # Workspace packages and dependency catalog
+├── turbo.json                   # Task graph and cache outputs
+└── .gitignore                   # Files excluded from version control
 ```
 
 Organization rules:
 
-- Group business code by domain or capability instead of generic file type as the application grows.
+- Group web business code by domain or capability under `apps/web/src/modules/` as the application grows.
+- Add a new directory under `apps/` only for an independently deployable application.
+- Add a new directory under `packages/` only for code or configuration reused across workspace applications.
 - Keep entry points thin and move business rules into independently testable modules.
 - Put code in `shared/` only when it is genuinely reused; do not turn it into a catch-all.
 - Keep unit tests close to their source when supported by the ecosystem. Use `tests/` for cross-module, integration, and end-to-end tests.
@@ -43,7 +50,7 @@ There are two common ways to group source code, and the right choice depends on 
 - **Layer-based** (a.k.a. package-by-type): files are grouped by technical role (`controllers/`, `models/`, `services/`). Simple and fine for small projects, but related code for a single feature ends up scattered across many folders as the app grows.
 - **Feature-based** (a.k.a. package-by-feature or domain-driven): files are grouped by business capability (e.g. `modules/billing/`, `modules/auth/`), with each feature folder holding its own logic, tests, and types. This keeps related code together, reduces merge conflicts between contributors, and scales better with team size.
 
-Tabularium's target layout (`src/modules/`) is feature-based. Start each module with a flat, simple internal structure and only add sub-layers (e.g. `modules/billing/http/`, `modules/billing/domain/`) once a module is large enough to need them — do not pre-create layered scaffolding for empty modules.
+Tabularium's target application layout (`apps/web/src/modules/`) is feature-based. Start each module with a flat, simple internal structure and only add sub-layers (for example, `modules/demands/data/` or `modules/demands/components/`) once a module is large enough to need them. Do not pre-create layered scaffolding for empty modules.
 
 General naming and depth conventions:
 
@@ -66,6 +73,12 @@ General naming and depth conventions:
 - Do not rely on globally installed packages or undocumented machine state.
 - Keep deploy-specific configuration in environment variables and provide a secret-free `.env.example`.
 - Do not version generated artifacts, caches, installed dependencies, or personal editor settings.
+
+## Icons and assets
+
+- Source all UI icons from [Bootstrap Icons](https://icons.getbootstrap.com/) instead of mixing icon sets, hand-drawn SVGs, or icons copied from random sites. Use the Bootstrap Icons MCP server when configured to search and fetch icons by name; otherwise install the `bootstrap-icons` package or copy the SVG markup directly from the site.
+- Bootstrap Icons (over 2,000 icons, including brand marks such as GitHub, Google, Apple, and others) is MIT-licensed by the Bootstrap team: free for personal and commercial use, no attribution required. Use any icon in the set, including brand icons, without hesitation — the license already clears it.
+- Only reach for a different icon source when Bootstrap Icons genuinely lacks the icon needed, and document the exception (source and license) where the icon is used.
 
 ## Branches and review
 
@@ -150,6 +163,8 @@ Never modify an already published version. Record meaningful changes in a change
 - [Folder Structure Best Practices: The Complete Guide](https://www.suitefiles.com/guide/the-guide-to-folder-structures-best-practices-for-professional-service-firms-and-more/)
 - [Organizing Project Folder Structure: Function-Based vs Feature-Based](https://medium.com/@ikonija.bogojevic/organizing-project-folder-structure-function-based-vs-feature-based-168596b6d169)
 - [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
+- [Bootstrap Icons license (MIT)](https://github.com/twbs/icons/blob/main/LICENSE)
 - [OWASP Secure Coding Practices Checklist](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/stable-en/02-checklist/05-checklist)
 - [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Semantic Versioning 2.0.0](https://semver.org/)

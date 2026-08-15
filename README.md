@@ -1,4 +1,4 @@
-# tabularium
+# Tabularium
 
 This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines Next.js, Self, and more.
 
@@ -69,14 +69,26 @@ If you want to add app-specific blocks instead of shared primitives, run the sha
 
 ## Project Structure
 
-```
+```text
 tabularium/
 ├── apps/
-│   └── web/         # Fullstack application (Next.js)
+│   └── web/         # Full-stack Next.js application
+├── docs/                # Engineering and branding documentation
 ├── packages/
-│   ├── ui/          # Shared shadcn/ui components and styles
-│   └── db/          # Database schema & queries
+│   ├── config/      # Shared TypeScript configuration
+│   ├── db/          # Prisma schema and database client
+│   ├── env/         # Validated environment variables
+│   └── ui/          # Shared shadcn/ui components and styles
+├── CLAUDE.md           # Claude operating instructions
+├── CODEX.md            # Codex operating instructions
+├── pnpm-workspace.yaml # Workspace and dependency catalog
+└── turbo.json          # Monorepo task pipeline
 ```
+
+## Documentation
+
+- [Development best practices](docs/BEST_PRACTICES.md)
+- [Brand and interface guidelines](docs/BRANDING.md)
 
 ## Available Scripts
 
