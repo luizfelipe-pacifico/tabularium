@@ -2,28 +2,41 @@
   "name": "tabularium",
   "private": true,
   "workspaces": [
-    "apps/*",
     "packages/*"
   ],
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "check-types": "turbo run check-types",
-    "dev:web": "turbo run dev -F web --",
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "check-types": "tsc --noEmit",
+    "start": "next start",
     "db:push": "turbo run db:push -F @tabularium/db --",
     "db:studio": "turbo run db:studio -F @tabularium/db --",
     "db:generate": "turbo run db:generate -F @tabularium/db --",
     "db:migrate": "turbo run db:migrate -F @tabularium/db --"
   },
   "dependencies": {
+    "@prisma/client": "catalog:",
+    "@swc/helpers": "^0.5.23",
     "@tabularium/env": "workspace:*",
+    "@tabularium/ui": "workspace:*",
+    "babel-plugin-react-compiler": "^1.0.0",
     "dotenv": "catalog:",
+    "lucide-react": "catalog:",
+    "next": "^16.3.0",
+    "next-themes": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "sonner": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
     "@tabularium/config": "workspace:*",
-    "@types/node": "^22.20.1",
+    "@tailwindcss/postcss": "catalog:",
+    "@types/node": "^20.19.43",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "tailwindcss": "catalog:",
     "turbo": "^2.10.7",
     "typescript": "catalog:"
   },

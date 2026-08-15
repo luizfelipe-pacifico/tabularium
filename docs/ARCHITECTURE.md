@@ -4,7 +4,7 @@
 
 ## Architectural style
 
-Tabularium is a **modular monolith inside a pnpm/Turborepo monorepo**: one deployable application (`apps/web`) backed by shared, independently versionable packages (`packages/*`). There is no separate backend service — Next.js's App Router acts as its own backend-for-frontend (BFF): Server Components, Route Handlers, and Server Actions run exclusively on the server and are the only code allowed to touch the database or hold secrets.
+Tabularium is a **modular monolith**: one root Next.js application (`src`) backed by shared workspace packages (`packages/*`). There is no separate backend service — Next.js's App Router acts as its own backend-for-frontend (BFF): Server Components, Route Handlers, and Server Actions run exclusively on the server and are the only code allowed to touch the database or hold secrets.
 
 This style was chosen because the product (a single-team demand tracking and scoring system) does not yet have a reason to pay for the operational cost of separate services. Package boundaries inside the monorepo exist so that splitting a package into its own deployable later — if the product ever needs it — is a refactor, not a rewrite.
 
@@ -12,7 +12,7 @@ This style was chosen because the product (a single-team demand tracking and sco
 
 ```text
 ┌─────────────────────────────────────────────┐
-│ apps/web                                     │
+│ Root Next.js app (`src`)                     │
 │  ┌─────────────┐   ┌───────────────────────┐ │
 │  │ app/ (routes)│──▶│ components/ (app-only)│ │
 │  └──────┬──────┘   └───────────────────────┘ │
@@ -32,9 +32,9 @@ This style was chosen because the product (a single-team demand tracking and sco
 
 Rules that keep this graph acyclic and enforceable:
 
-- **Dependencies point one way**: `apps/*` depend on `packages/*`; packages never import from `apps/*`. A package that needs app-specific behavior takes it as a parameter/prop, it does not reach back into the app.
+- **Dependencies point one way**: the root app depends on `packages/*`; packages never import from `src`. A package that needs app-specific behavior takes it as a parameter/prop, it does not reach back into the app.
 - **Packages don't depend on each other except through `packages/env` and `packages/config`**, which are foundational (env validation, shared TS config) and may be imported by any other package. `packages/ui` does not import `packages/db`, and vice versa — UI stays render-only and framework-agnostic of the data layer.
-- **Only `packages/db` talks to PostgreSQL.** Application code (`apps/web`) never imports `@prisma/client` or holds a raw connection string; it imports the typed client boundary from `packages/db` (`packages/db/src/index.ts`). This is the Data Access Layer: as query complexity grows, add query functions in `packages/db` (e.g. `packages/db/src/demands.ts`) rather than calling the Prisma client ad hoc from route code, so authorization and validation rules for a given entity live in one place instead of being re-implemented at every call site.
+- **Only `packages/db` talks to PostgreSQL.** Application code in `src` never imports `@prisma/client` or holds a raw connection string; it imports the typed client boundary from `packages/db` (`packages/db/src/index.ts`). This is the Data Access Layer: as query complexity grows, add query functions in `packages/db` (e.g. `packages/db/src/demands.ts`) rather than calling the Prisma client ad hoc from route code, so authorization and validation rules for a given entity live in one place instead of being re-implemented at every call site.
 - **Only `packages/env`, via `server.ts`, is allowed to read `process.env` for secrets.** Everything else receives already-validated, typed config.
 
 ## Request lifecycle
@@ -67,16 +67,16 @@ This restates and sharpens `docs/HOW-IT-WORKS.md`'s placement rules from an arch
 
 | Concern | Location |
 | --- | --- |
-| Route/page composition, layouts | `apps/web/src/app` |
-| App-only UI (not reused elsewhere) | `apps/web/src/components` |
-| A business capability (e.g. "demands", "scoring") once it has real logic | `apps/web/src/modules/<feature>`, feature-based (see `docs/BEST_PRACTICES.md`) |
+| Route/page composition, layouts | `src/app` |
+| App-only UI (not reused elsewhere) | `src/components` |
+| A business capability (e.g. "demands", "scoring") once it has real logic | `src/modules/<feature>`, feature-based (see `docs/BEST_PRACTICES.md`) |
 | Reusable, presentation-only UI primitive | `packages/ui/src/components` |
 | Database schema, queries, mutations | `packages/db` |
 | Environment variable declaration/validation | `packages/env` |
 | Shared TypeScript config | `packages/config` |
 | Architecture/policy/design decisions | `docs/` |
 
-A module under `apps/web/src/modules/<feature>` should itself stay layered internally as it grows: keep its own data-access calls (thin wrappers around `packages/db` functions), its business/scoring logic, and its components separated within the module rather than as one large file — but do not pre-create that internal structure before a module actually needs it (see `docs/BEST_PRACTICES.md`, "Do not create empty directories in advance").
+A module under `src/modules/<feature>` should itself stay layered internally as it grows: keep its own data-access calls (thin wrappers around `packages/db` functions), its business/scoring logic, and its components separated within the module rather than as one large file — but do not pre-create that internal structure before a module actually needs it (see `docs/BEST_PRACTICES.md`, "Do not create empty directories in advance").
 
 ## Non-functional principles
 

@@ -6,7 +6,7 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done.
 
 ## MVP: the smallest version that is actually useful
 
-The MVP is: **one operator can log in, register a demand, see it scored and listed on the dashboard, and move it through its status — all backed by a real database, with the security baseline from `docs/SECURITY.md` already in place.** Everything else is deliberately deferred; the current `DashboardShell` (`apps/web/src/components/dashboard-shell.tsx`) already renders the target UI against hardcoded arrays — the MVP's job is to make that data real, not to redesign it.
+The MVP is: **one operator can log in, register a demand, see it scored and listed on the dashboard, and move it through its status — all backed by a real database, with the security baseline from `docs/SECURITY.md` already in place.** Everything else is deliberately deferred; the current `DashboardShell` (`src/components/dashboard-shell.tsx`) already renders the target UI against hardcoded arrays — the MVP's job is to make that data real, not to redesign it.
 
 - [ ] **Schema and migration**: implement the initial model from `docs/DATA_MODEL.md` (`Operator`, `Demand`, the category/priority/status enums, `DemandStatusChange`) in `packages/db/prisma/schema/schema.prisma` and run the first migration with `pnpm run db:migrate`.
 - [ ] **Data access layer**: add typed query/mutation functions in `packages/db` (list demands, create demand, update status, list operators) instead of calling Prisma directly from route code, per `docs/ARCHITECTURE.md`.
@@ -26,7 +26,7 @@ Each pillar is a coherent area of work, not a strict phase — pull from whichev
 
 ### 1. Journey & history (demand lifecycle tracking)
 
-The dashboard already reserves a "Journey" and a "History" nav item (`apps/web/src/components/dashboard-shell.tsx`) with no view behind them yet, and `docs/DATA_MODEL.md` already models `DemandStatusChange` to back this.
+The dashboard already reserves a "Journey" and a "History" nav item (`src/components/dashboard-shell.tsx`) with no view behind them yet, and `docs/DATA_MODEL.md` already models `DemandStatusChange` to back this.
 
 - Per-demand timeline view: every status change, who made it, and when.
 - A "Journey" screen showing a demand's full lifecycle from creation to completion, not just its current state.

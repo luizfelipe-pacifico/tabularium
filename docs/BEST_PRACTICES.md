@@ -4,16 +4,14 @@ This guide establishes the development baseline for Tabularium. It must evolve w
 
 ## Project organization
 
-Use the established pnpm and Turborepo monorepo structure. Keep deployable applications in `apps/`, reusable capabilities in `packages/`, and product documentation in `docs/`:
+Use the established root Next.js application with reusable capabilities in `packages/` and product documentation in `docs/`:
 
 ```text
 tabularium/
-├── apps/
-│   └── web/                 # Full-stack Next.js application
-│       └── src/
-│           ├── app/         # App Router pages, layouts, and route boundaries
-│           ├── components/  # Components owned only by the web application
-│           └── modules/     # Future business capabilities, grouped by domain
+├── src/                     # Full-stack Next.js application
+│   ├── app/                 # App Router pages, layouts, and route boundaries
+│   ├── components/          # Components owned only by the web application
+│   └── modules/             # Future business capabilities, grouped by domain
 ├── packages/
 │   ├── config/              # Shared TypeScript configuration
 │   ├── db/                  # Prisma schema, migrations, and database client
@@ -33,8 +31,8 @@ tabularium/
 
 Organization rules:
 
-- Group web business code by domain or capability under `apps/web/src/modules/` as the application grows.
-- Add a new directory under `apps/` only for an independently deployable application.
+- Group web business code by domain or capability under `src/modules/` as the application grows.
+- Do not recreate `apps/web`; the only deployable application is rooted at `/tabularium`.
 - Add a new directory under `packages/` only for code or configuration reused across workspace applications.
 - Keep entry points thin and move business rules into independently testable modules.
 - Put code in `shared/` only when it is genuinely reused; do not turn it into a catch-all.
@@ -45,7 +43,7 @@ Organization rules:
 - Before creating a new file or directory, check whether an equivalent one already exists and reuse or extend it instead of duplicating structure.
 - Keep only `README.md` at the repository root. Every other Markdown document belongs in `docs/`; do not create per-app READMEs or instruction files.
 - Keep a single local `.env` and its secret-free `.env.example` at the repository root. Do not create environment files inside individual workspaces unless the architecture is deliberately changed and documented.
-- Keep framework and package boundary files beside the workspace they configure. Files such as `apps/web/package.json`, `next.config.ts`, `tsconfig.json`, `postcss.config.mjs`, `components.json`, and `.gitignore` are not loose project documents and must remain at the app root.
+- Keep Next.js configuration files at the repository root beside the root application.
 
 ### Layer-based vs. feature-based organization
 
@@ -54,7 +52,7 @@ There are two common ways to group source code, and the right choice depends on 
 - **Layer-based** (a.k.a. package-by-type): files are grouped by technical role (`controllers/`, `models/`, `services/`). Simple and fine for small projects, but related code for a single feature ends up scattered across many folders as the app grows.
 - **Feature-based** (a.k.a. package-by-feature or domain-driven): files are grouped by business capability (e.g. `modules/billing/`, `modules/auth/`), with each feature folder holding its own logic, tests, and types. This keeps related code together, reduces merge conflicts between contributors, and scales better with team size.
 
-Tabularium's target application layout (`apps/web/src/modules/`) is feature-based. Start each module with a flat, simple internal structure and only add sub-layers (for example, `modules/demands/data/` or `modules/demands/components/`) once a module is large enough to need them. Do not pre-create layered scaffolding for empty modules.
+Tabularium's target application layout (`src/modules/`) is feature-based. Start each module with a flat, simple internal structure and only add sub-layers (for example, `modules/demands/data/` or `modules/demands/components/`) once a module is large enough to need them. Do not pre-create layered scaffolding for empty modules.
 
 General naming and depth conventions:
 

@@ -50,31 +50,6 @@ importers:
 
   .:
     dependencies:
-      '@tabularium/env':
-        specifier: workspace:*
-        version: link:packages/env
-      dotenv:
-        specifier: 'catalog:'
-        version: 17.4.2
-      zod:
-        specifier: 'catalog:'
-        version: 4.4.3
-    devDependencies:
-      '@tabularium/config':
-        specifier: workspace:*
-        version: link:packages/config
-      '@types/node':
-        specifier: ^22.20.1
-        version: 22.20.1
-      turbo:
-        specifier: ^2.10.7
-        version: 2.10.10
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-
-  apps/web:
-    dependencies:
       '@prisma/client':
         specifier: 'catalog:'
         version: 7.9.1(prisma@7.9.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@6.0.3))(typescript@6.0.3)
@@ -83,10 +58,10 @@ importers:
         version: 0.5.23
       '@tabularium/env':
         specifier: workspace:*
-        version: link:../../packages/env
+        version: link:packages/env
       '@tabularium/ui':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:packages/ui
       babel-plugin-react-compiler:
         specifier: ^1.0.0
         version: 1.0.0
@@ -117,7 +92,7 @@ importers:
     devDependencies:
       '@tabularium/config':
         specifier: workspace:*
-        version: link:../../packages/config
+        version: link:packages/config
       '@tailwindcss/postcss':
         specifier: 'catalog:'
         version: 4.3.3
@@ -133,6 +108,9 @@ importers:
       tailwindcss:
         specifier: 'catalog:'
         version: 4.3.3
+      turbo:
+        specifier: ^2.10.7
+        version: 2.10.10
       typescript:
         specifier: 'catalog:'
         version: 6.0.3

@@ -24,7 +24,7 @@
 
 ## Proposed initial domain model
 
-Scope: the entities needed to make the current dashboard (`apps/web/src/components/dashboard-shell.tsx`) real, matching the "demand tracking and scoring system" framing in `docs/BRANDING.md`.
+Scope: the entities needed to make the current dashboard (`src/components/dashboard-shell.tsx`) real, matching the "demand tracking and scoring system" framing in `docs/BRANDING.md`.
 
 ```text
 Operator

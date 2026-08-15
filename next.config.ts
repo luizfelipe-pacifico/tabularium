@@ -5,7 +5,7 @@ import "@tabularium/env/web";
 import type { NextConfig } from "next";
 
 dotenv.config({
-  path: fileURLToPath(new URL("../../.env", import.meta.url)),
+  path: fileURLToPath(new URL("./.env", import.meta.url)),
   quiet: true,
 });
 

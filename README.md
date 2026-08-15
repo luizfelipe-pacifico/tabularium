@@ -47,7 +47,7 @@ React web apps in this stack share shadcn/ui primitives through `packages/ui`.
 
 - Change design tokens and global styles in `packages/ui/src/styles/globals.css`
 - Update shared primitives in `packages/ui/src/components/*`
-- Adjust shadcn aliases or style config in `packages/ui/components.json` and `apps/web/components.json`
+- Adjust shadcn aliases or style config in `packages/ui/components.json` and the root `components.json`
 
 ### Add more shared components
 
@@ -65,14 +65,13 @@ import { Button } from "@tabularium/ui/components/button";
 
 ### Add app-specific blocks
 
-If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from `apps/web`.
+If you want to add app-specific blocks instead of shared primitives, run the shadcn CLI from the repository root.
 
 ## Project Structure
 
 ```text
 tabularium/
-├── apps/
-│   └── web/         # Full-stack Next.js application
+├── src/                 # Full-stack Next.js application
 ├── docs/                # All project documentation except this README
 ├── packages/
 │   ├── config/      # Shared TypeScript configuration
@@ -97,11 +96,13 @@ tabularium/
 - [Codex working instructions](docs/CODEX.md)
 - [Next.js agent rules](docs/NEXTJS-AGENT-RULES.md)
 
+Deployment and environment requirements are documented in the Vercel section of [How the system works](docs/HOW-IT-WORKS.md#vercel-deployment).
+
 ## Available Scripts
 
 - `pnpm run dev`: Start all applications in development mode
 - `pnpm run build`: Build all applications
-- `pnpm run dev:web`: Start only the web application
+- `pnpm run start`: Start the production Next.js server after a build
 - `pnpm run check-types`: Check TypeScript types across all apps
 - `pnpm run db:push`: Push schema changes to database
 - `pnpm run db:generate`: Generate database client/types

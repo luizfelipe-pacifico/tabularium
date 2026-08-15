@@ -10,7 +10,7 @@ Tabularium is an early-stage TypeScript monorepo using pnpm, Turborepo, Next.js,
 
 ## Canonical organization
 
-- `apps/` is only for independently deployable applications; the current application is `apps/web`.
+- The deployable Next.js application lives at the repository root, with code in `src/`.
 - `packages/` is only for reusable workspace capabilities: `config`, `db`, `env`, and `ui`.
 - `docs/` contains every Markdown document except the root `README.md`.
 - The root `.env` is the single local source of environment variables; `.env.example` contains names and safe placeholders only.
@@ -20,8 +20,8 @@ Tabularium is an early-stage TypeScript monorepo using pnpm, Turborepo, Next.js,
 ## Working rules
 
 - Preserve user changes and remain within the requested scope.
-- Keep business capabilities feature-based under `apps/web/src/modules` as they are introduced.
-- Keep app-only components in `apps/web/src/components` and shared UI primitives in `packages/ui/src/components`.
+- Keep business capabilities feature-based under `src/modules` as they are introduced.
+- Keep app-only components in `src/components` and shared UI primitives in `packages/ui/src/components`.
 - Keep database schema/client concerns in `packages/db` and environment validation in `packages/env`.
 - Never expose or version secrets.
 - Update `README.md` and `docs/HOW-IT-WORKS.md` whenever setup, architecture, commands, or behavior changes.
