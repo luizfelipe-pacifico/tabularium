@@ -1,0 +1,69 @@
+# Variáveis de ambiente e segredos locais
+.env
+.env.*
+!.env.example
+
+# Dependências
+node_modules/
+vendor/
+
+# Builds e artefatos gerados
+dist/
+build/
+out/
+coverage/
+*.tsbuildinfo
+
+# Caches e arquivos temporários
+.cache/
+.parcel-cache/
+.turbo/
+.next/
+.nuxt/
+.vite/
+tmp/
+temp/
+*.tmp
+*.temp
+*.log
+*.pid
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Java e .NET
+target/
+bin/
+obj/
+*.class
+
+# IDEs e editores
+.idea/
+.vscode/
+*.suo
+*.user
+*.swp
+*.swo
+*~
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Relatórios e dados locais
+*.sqlite
+*.sqlite3
+*.db
+*.bak
+*.dump
+
+# Pacotes e arquivos compactados gerados
+*.tgz
+*.zip
