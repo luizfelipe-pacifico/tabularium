@@ -244,6 +244,13 @@ Do not assign status colors ad hoc in individual screens.
 - Use illustrations or textures only when they add meaning; avoid decorative stock imagery.
 - If a logo is introduced, preserve clear space and never distort, recolor, or add effects without updating this guide.
 
+### Image asset formats
+
+- Convert every photographic or illustrative image intended for the initial landing page to WebP before adding it to the production bundle.
+- Export responsive image sizes and use the smallest dimensions and quality setting that preserve the intended appearance.
+- Keep source files outside the runtime asset directory; production code should reference the optimized WebP derivative.
+- Continue to use SVG for scalable interface symbols and ICO for the browser favicon when those formats are more appropriate.
+
 ## Motion
 
 Motion should confirm cause and effect, not decorate the interface.

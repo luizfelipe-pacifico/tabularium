@@ -207,7 +207,7 @@ export function DashboardShell() {
                 {filteredDemands.map((demand) => (
                   <button className="demand-row" key={demand.id}>
                     <strong>{demand.id}</strong>
-                    <span className={`tag category-${demand.category.toLowerCase()}`}>{demand.category}</span>
+                    <span className="tag category-tag">{demand.category}</span>
                     <span className={`tag priority-${demand.priority.toLowerCase()}`}>{demand.priority}</span>
                     <span className="demand-area">{demand.area}</span>
                     <span className="status-tag">{demand.status}</span>
