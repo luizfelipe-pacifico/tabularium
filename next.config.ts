@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   agentRules: false,
   typedRoutes: true,
   reactCompiler: true,
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+  },
 };
 
 export default nextConfig;

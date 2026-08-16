@@ -7,7 +7,7 @@ import { useState } from "react";
 import { ModeToggle } from "@/components/mode-toggle";
 
 const PAGE_META: Record<string, { eyebrow: string; title: string }> = {
-  "/": { eyebrow: "Operational intelligence", title: "Demand overview" },
+  "/dashboard": { eyebrow: "Operational intelligence", title: "Demand overview" },
   "/demands": { eyebrow: "Active queue", title: "Active demands" },
   "/board": { eyebrow: "Workflow", title: "Board" },
   "/journey": { eyebrow: "Lifecycle", title: "Journey" },

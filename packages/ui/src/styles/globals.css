@@ -91,7 +91,7 @@ button { color: inherit; }
 .tabularium-shell { min-height: 100vh; background: var(--parchment); }
 .app-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 40; display: flex; width: 256px; flex-direction: column; background: var(--ebony); color: #f4f1ea; border-right: 1px solid rgb(244 241 234 / 10%); }
 .brand-lockup { display: flex; min-height: 88px; align-items: center; gap: 12px; padding: 18px 20px; border-bottom: 1px solid rgb(244 241 234 / 12%); }
-.brand-lockup img { width: 44px; height: 44px; background: #fff; border-radius: 6px; }
+.brand-lockup img { width: 44px; height: 44px; object-fit: contain; }
 .brand-name { margin: 0; font-family: var(--font-playfair), Georgia, serif; font-size: 21px; font-weight: 700; }
 .brand-kicker, .sidebar-section-label { margin: 3px 0 0; color: rgb(244 241 234 / 58%); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .sidebar-close { display: none; margin-left: auto; border: 0; background: transparent; }

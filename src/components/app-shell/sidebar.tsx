@@ -33,7 +33,7 @@ import {
 } from "@tabularium/ui/components/dropdown-menu";
 
 const primaryNav = [
-  { href: "/", label: "Overview", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
   { href: "/demands", label: "Active demands", icon: ListChecks },
   { href: "/board", label: "Board", icon: Columns3 },
   { href: "/journey", label: "Journey", icon: TrendingUp },
