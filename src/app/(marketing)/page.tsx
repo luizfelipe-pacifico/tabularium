@@ -67,7 +67,7 @@ export default function HomePage() {
               Prioridade clara, roadmap visível,
             </h1>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link href="/login" className="button-primary">
+              <Link href="/login" className="button-primary !bg-[var(--amber)]">
                 Entrar
               </Link>
               <a href="mailto:contato@tabularium.dev" className="button-secondary !border-white/30 !bg-transparent !text-white">
