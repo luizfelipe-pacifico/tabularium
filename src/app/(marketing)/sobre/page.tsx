@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function SobrePage() {
   return (
     <>
-      <section className="site-section grid items-center gap-14 pt-16 md:grid-cols-2 md:pt-24">
+      <section className="site-section grid items-center gap-14 md:grid-cols-2">
         <Reveal>
           <p className="site-eyebrow">sobre o projeto</p>
           <h1

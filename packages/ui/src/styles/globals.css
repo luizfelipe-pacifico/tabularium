@@ -240,7 +240,13 @@ button { color: inherit; }
 
 /* Public-site (marketing) primitives — deliberately plainer than the app: moderate radii,
    subtle borders/shadows instead of glassmorphism or heavy tinted glows, per docs/BRANDING.md */
+:root { --site-header-h: 73px; }
+@media (max-width: 640px) { :root { --site-header-h: 152px; } }
 .site-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); background: var(--parchment); transition: background 220ms ease, border-color 220ms ease; }
+/* Pulls the hero up by exactly the header's height, so the header's transparent
+   state actually floats over the hero media instead of over plain page background —
+   without this, "transparent" just means invisible text on the page's own bg. */
+.hero-under-header { margin-top: calc(-1 * var(--site-header-h)); }
 .site-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; max-width: 1120px; margin: 0 auto; padding: 18px 24px; }
 .site-brand { display: flex; align-items: center; gap: 10px; justify-self: start; }
 .site-brand span { font-family: var(--font-playfair), Georgia, serif; font-size: 19px; font-weight: 700; transition: color 220ms ease; }
@@ -258,7 +264,7 @@ button { color: inherit; }
 .site-header-transparent .button-primary:hover { background: #fff; }
 
 @media (max-width: 640px) {
-  .site-nav { grid-template-columns: 1fr; justify-items: center; gap: 10px; }
+  .site-nav { grid-template-columns: 1fr; justify-items: center; gap: 8px; padding: 12px 20px; }
   .site-brand, .site-nav-links, .site-nav > .button-primary { justify-self: center; }
   .site-nav-links { gap: 16px; font-size: 12px; }
 }
@@ -267,6 +273,9 @@ button { color: inherit; }
 .button-secondary { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: var(--radius-md, 6px); background: var(--surface); color: var(--ebony); padding: 10px 20px; font-size: 13px; font-weight: 600; text-decoration: none; transition: border-color 160ms ease; }
 .button-secondary:hover { border-color: rgb(184 119 61 / 45%); }
 .site-section { max-width: 1120px; margin: 0 auto; padding: 72px 24px; }
+@media (max-width: 640px) {
+  .site-section { padding: 40px 20px; }
+}
 .site-eyebrow { color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .site-card { border: 1px solid var(--line); border-radius: var(--radius-lg, 8px); background: var(--surface); box-shadow: 0 1px 2px rgb(26 17 10 / 5%); }
 .site-footer { border-top: 1px solid var(--line); padding: 32px 24px; }

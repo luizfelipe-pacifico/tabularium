@@ -45,7 +45,7 @@ export default function HomePage() {
     <>
       {/* HERO — background video (falls back to the archive illustration if no source
           loads yet or the visitor prefers reduced motion), minimal centered copy. */}
-      <section className="relative flex min-h-[92svh] items-center justify-center overflow-hidden">
+      <section className="hero-under-header relative flex min-h-[92svh] items-center justify-center overflow-hidden">
         <div className="hero-media">
           <video className="hero-video" autoPlay muted loop playsInline poster="/assets/landing/hero-archive-order.webp">
             <source src="/videos/hero.mp4" type="video/mp4" />
@@ -90,7 +90,7 @@ export default function HomePage() {
       </section>
 
       {/* MODULAR GRID */}
-      <section className="site-section border-t border-[var(--line)] pt-16">
+      <section className="site-section border-t border-[var(--line)]">
         <Reveal>
           <p className="site-eyebrow">como funciona</p>
           <h2 className="mt-3 text-2xl font-extrabold" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
@@ -129,7 +129,7 @@ export default function HomePage() {
 
       {/* GROUNDED STATS */}
       <section className="border-y border-[var(--line)] bg-white/60">
-        <div className="site-section grid grid-cols-3 gap-6 py-14 text-center">
+        <div className="site-section grid grid-cols-3 gap-6 text-center">
           {stats.map((stat, index) => (
             <Reveal key={stat.label} delay={index * 100}>
               <p

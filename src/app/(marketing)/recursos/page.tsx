@@ -41,7 +41,7 @@ const features = [
 export default function RecursosPage() {
   return (
     <>
-      <section className="site-section pt-16 pb-8 text-center md:pt-24">
+      <section className="site-section text-center">
         <Reveal>
           <p className="site-eyebrow">recursos</p>
           <h1
