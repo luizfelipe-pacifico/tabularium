@@ -1,33 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
 
-const navLinks = [
-  { href: "/", label: "Início" },
-  { href: "/recursos", label: "Recursos" },
-  { href: "/sobre", label: "Sobre" },
-] as const;
+import { SiteHeader } from "@/components/landing/site-header";
 
 export default function MarketingLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-[var(--parchment)] text-[var(--ebony)]">
-      <header className="site-header">
-        <nav className="site-nav">
-          <Link href="/" className="site-brand">
-            <Image src="/brand/icon-tabularium-black.png" width={28} height={28} alt="Símbolo do Tabularium" priority />
-            <span>Tabularium</span>
-          </Link>
-          <div className="site-nav-links">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href}>
-                {link.label}
-              </Link>
-            ))}
-            <Link href="/login" className="button-primary">
-              Entrar
-            </Link>
-          </div>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main>{children}</main>
 
