@@ -1,5 +1,6 @@
 "use client";
 
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,6 +16,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     if (!isHome) return;
@@ -25,7 +27,13 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, [isHome]);
 
-  const transparent = isHome && !scrolled;
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Opening the mobile menu forces the solid header state, even over the hero —
+  // light text/icons on a transparent bar would be unreadable against the open panel.
+  const transparent = isHome && !scrolled && !mobileOpen;
 
   return (
     <header className={`site-header ${transparent ? "site-header-transparent" : ""}`}>
@@ -52,7 +60,30 @@ export function SiteHeader() {
         <Link href="/login" className="button-primary">
           Entrar
         </Link>
+
+        <button
+          type="button"
+          className="site-mobile-toggle"
+          aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((open) => !open)}
+        >
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </nav>
+
+      {mobileOpen ? (
+        <div className="site-mobile-panel">
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
+          <Link href="/login" className="button-primary" onClick={() => setMobileOpen(false)}>
+            Entrar
+          </Link>
+        </div>
+      ) : null}
     </header>
   );
 }

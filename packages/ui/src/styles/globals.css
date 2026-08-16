@@ -4,6 +4,12 @@
 @source "../../../apps/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
 
+/* Ties Tailwind's `dark:` variant to next-themes' class-based toggle (attribute="class")
+   instead of Tailwind v4's default `prefers-color-scheme` media query — without this, a
+   manual Light/Dark selection that disagrees with the OS preference is ignored by any
+   `dark:` utility. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --parchment: #f4f1ea;
   --surface: #fffdf8;
@@ -241,7 +247,7 @@ button { color: inherit; }
 /* Public-site (marketing) primitives — deliberately plainer than the app: moderate radii,
    subtle borders/shadows instead of glassmorphism or heavy tinted glows, per docs/BRANDING.md */
 :root { --site-header-h: 73px; }
-@media (max-width: 640px) { :root { --site-header-h: 152px; } }
+@media (max-width: 640px) { :root { --site-header-h: 64px; } }
 .site-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); background: var(--parchment); transition: background 220ms ease, border-color 220ms ease; }
 /* Pulls the hero up by exactly the header's height, so the header's transparent
    state actually floats over the hero media instead of over plain page background —
@@ -252,8 +258,10 @@ button { color: inherit; }
 .site-brand span { font-family: var(--font-playfair), Georgia, serif; font-size: 19px; font-weight: 700; transition: color 220ms ease; }
 .site-nav-links { display: flex; align-items: center; gap: 28px; justify-self: center; font-size: 13px; font-weight: 600; }
 .site-nav-links a { color: var(--graphite); text-decoration: none; transition: color 160ms ease; }
-.site-nav-links a:hover { color: var(--ebony); }
+.site-nav-links a:hover { color: var(--foreground); }
 .site-nav > .button-primary { justify-self: end; }
+.site-mobile-toggle { display: none; align-items: center; justify-content: center; width: 40px; height: 40px; margin: -8px; border: 0; border-radius: 6px; background: transparent; color: var(--foreground); cursor: pointer; transition: color 160ms ease, background 160ms ease; }
+.site-mobile-toggle:hover { background: rgb(26 17 10 / 6%); }
 
 /* Transparent variant, worn only over the hero (see SiteHeader) */
 .site-header-transparent { border-bottom-color: transparent; background: transparent; }
@@ -262,15 +270,20 @@ button { color: inherit; }
 .site-header-transparent .site-nav-links a:hover { color: #fffdf8; }
 .site-header-transparent .button-primary { background: #fffdf8; color: var(--ebony); }
 .site-header-transparent .button-primary:hover { background: #fff; }
+.site-header-transparent .site-mobile-toggle { color: #fffdf8; }
+.site-header-transparent .site-mobile-toggle:hover { background: rgb(255 255 255 / 12%); }
 
 @media (max-width: 640px) {
-  .site-nav { grid-template-columns: 1fr; justify-items: center; gap: 8px; padding: 12px 20px; }
-  .site-brand, .site-nav-links, .site-nav > .button-primary { justify-self: center; }
-  .site-nav-links { gap: 16px; font-size: 12px; }
+  .site-nav { grid-template-columns: 1fr auto; padding: 12px 20px; }
+  .site-nav-links, .site-nav > .button-primary { display: none; }
+  .site-mobile-toggle { display: inline-flex; justify-self: end; }
+  .site-mobile-panel { display: flex; flex-direction: column; gap: 2px; padding: 4px 20px 20px; background: var(--parchment); border-top: 1px solid var(--line); }
+  .site-mobile-panel a:not(.button-primary) { padding: 12px 4px; color: var(--foreground); font-size: 15px; font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--line); }
+  .site-mobile-panel .button-primary { margin-top: 14px; justify-content: center; }
 }
 .button-primary { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--radius-md, 6px); background: var(--ebony); color: #fffdf8; padding: 10px 20px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 1px 2px rgb(26 17 10 / 8%); transition: background 160ms ease; }
 .button-primary:hover { background: #2a1c11; }
-.button-secondary { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: var(--radius-md, 6px); background: var(--surface); color: var(--ebony); padding: 10px 20px; font-size: 13px; font-weight: 600; text-decoration: none; transition: border-color 160ms ease; }
+.button-secondary { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: var(--radius-md, 6px); background: var(--surface); color: var(--foreground); padding: 10px 20px; font-size: 13px; font-weight: 600; text-decoration: none; transition: border-color 160ms ease; }
 .button-secondary:hover { border-color: rgb(184 119 61 / 45%); }
 .site-section { max-width: 1120px; margin: 0 auto; padding: 72px 24px; }
 @media (max-width: 640px) {

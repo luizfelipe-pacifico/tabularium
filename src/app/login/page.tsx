@@ -11,10 +11,25 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--parchment)] px-6 py-16 text-[var(--ebony)]">
+    <div className="flex min-h-screen items-center justify-center bg-[var(--parchment)] px-6 py-16 text-[var(--foreground)]">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
-          <Image src="/brand/icon-tabularium-black.png" width={44} height={44} alt="Símbolo do Tabularium" priority />
+          <Image
+            src="/brand/icon-tabularium-black.png"
+            width={44}
+            height={44}
+            alt="Símbolo do Tabularium"
+            className="dark:hidden"
+            priority
+          />
+          <Image
+            src="/brand/icon-tabularium.png"
+            width={44}
+            height={44}
+            alt="Símbolo do Tabularium"
+            className="hidden dark:block"
+            priority
+          />
           <h1
             className="mt-4 text-2xl font-extrabold"
             style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}

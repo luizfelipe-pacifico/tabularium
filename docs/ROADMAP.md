@@ -1,4 +1,4 @@
-
+responsividade sempre para desktop, tablet e mobile
 # Roadmap
 
 This is a living plan, not a commitment with dates. It defines the smallest functional version of Tabularium (the MVP) and the pillars to build after it. Update it whenever scope, priority, or sequencing changes — an out-of-date roadmap is worse than none.
