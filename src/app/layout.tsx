@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Playfair_Display } from "next/font/google";
 
 import "../index.css";
+import Providers from "@/components/providers";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -20,8 +21,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR">
-      <body className={`${montserrat.variable} ${playfair.variable}`}>{children}</body>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={`${montserrat.variable} ${playfair.variable}`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -73,6 +73,24 @@ Never communicate state through color alone. Pair color with a label, icon, patt
 
 The additional surface and hover values are implementation recommendations derived from the core palette. Validate all final foreground and background combinations against WCAG contrast requirements.
 
+### Dark mode
+
+Dark mode is a **minimal, deliberate swap**, not a second palette: only the off-white surfaces (background and card/surface) become an equivalent dark gray. The accent and the always-dark navigation are untouched.
+
+| Token | Light | Dark | Why |
+| --- | --- | --- | --- |
+| `--color-background` (was Alabaster) | `#F4F1EA` | `#211E1A` | The one required change — off-white becomes a warm dark gray, same undertone family. |
+| `--color-surface` (cards, topbar) | `#FFFDF8` | `#2A2622` | Slightly lighter than the new background, for the same elevation relationship as light mode. |
+| `--color-text-primary` | `#1A110A` (Ebony) | `#F1ECE3` | Ebony-on-dark-gray would be unreadable, so primary text flips to a light tone. Ebony itself is unchanged and still used directly for the sidebar and other intentionally-always-dark elements. |
+| `--color-text-secondary` (Graphite) | `#4A4A4A` | `#B7B2A9` | Lightened only enough to clear WCAG contrast on the new dark background. |
+| Walnut | `#5C4033` | `#8A6A57` | Same reasoning as Graphite — lightened for presence, not redesigned. |
+| `--color-action-primary` (Amber) | `#B8773D` | `#B8773D` | **Unchanged.** Amber's contrast against white text was already tuned for a mid-tone background; darkening the page doesn't require darkening the accent. |
+| Sidebar / navigation (Ebony background) | Ebony | Ebony | **Unchanged.** The primary navigation is deliberately a fixed dark structural anchor regardless of theme (see "The 60–30–10 rule" above) — it does not participate in the light/dark toggle. |
+
+Status and priority tag colors (Critical/High/Medium red-amber-olive tones, success green) are lightened by the same margin as Graphite/Walnut in dark mode, purely to stay legible against the new dark background — their hue and meaning are unchanged. See the `.dark` block in `packages/ui/src/styles/globals.css` for the exact implementation.
+
+Theme is user-selectable (Light / Dark / System) via the header's theme toggle, backed by `next-themes` with `attribute="class"` — selecting a theme adds/removes a `dark` class on `<html>`, which the tokens above key off.
+
 ## Typography
 
 ### Display typeface: Playfair Display
