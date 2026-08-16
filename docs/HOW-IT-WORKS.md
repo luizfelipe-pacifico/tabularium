@@ -10,7 +10,10 @@ Tabularium is a pnpm/Turborepo monorepo. The current product is a Next.js 16 app
 tabularium/
 ├── src/                      # Deployable root Next.js application
 │   ├── app/                  # App Router entry points and layouts
-│   └── components/           # Components owned by the web app
+│   │   └── (app)/            # Every product route; wrapped in the sidebar/header shell
+│   ├── components/           # Components owned by the web app
+│   │   └── app-shell/        # Sidebar, header, and shared page-header used by every (app) route
+│   └── lib/                   # App-only data/helpers (currently mock data — see docs/SCREENS.md)
 ├── packages/
 │   ├── config/               # Shared TypeScript configuration
 │   ├── db/                   # Prisma schema, generated client boundary, and DB access
@@ -28,8 +31,8 @@ tabularium/
 
 1. Root commands invoke Next.js directly; database commands use Turborepo to target `packages/db`.
 2. Root `next.config.ts` loads `.env` before Next.js configuration and environment validation run.
-3. The App Router starts at `src/app/layout.tsx`; `/` renders `src/app/page.tsx`.
-4. App-specific React components live in `src/components`. The current home page renders `DashboardShell`.
+3. The App Router starts at `src/app/layout.tsx` (fonts, theme provider). Every product route lives under the `src/app/(app)/` route group, whose `layout.tsx` wraps `{children}` in `AppShell` — the persistent sidebar and header. `/` renders the Overview page; see `docs/SCREENS.md` for every other route.
+4. App-specific React components live in `src/components`. `src/components/app-shell/` holds the sidebar, header (including the Light/Dark/System theme toggle), and the shared `PageHeader` every route uses.
 5. Shared styles and UI primitives come from `packages/ui` through `@tabularium/ui/*` imports.
 6. Server environment variables are validated by `packages/env/src/server.ts`. Browser variables, when added, must be explicitly declared in `packages/env/src/web.ts`.
 7. Database code imports the client boundary from `packages/db`. Prisma reads `packages/db/prisma/schema/schema.prisma` and uses `DATABASE_URL` from the root `.env`.
@@ -40,7 +43,7 @@ There is exactly one local `.env`, at the repository root. Create it from `.env.
 
 - `DATABASE_URL` is required by the application and Prisma.
 - `HOSTNAME`, `PORT`, and `LOCAL_URL` define the local server at `http://localhost:3000`.
-- `NEXT_PUBLIC_APP_URL` defines the canonical public project URL (`https://tabularium.vercel.app`).
+- `NEXT_PUBLIC_APP_URL` defines the canonical public project URL (`https://tabularium-tech.vercel.app`).
 - Additional PostgreSQL variables in `.env.example` support local tooling/providers but do not replace `DATABASE_URL`.
 - New variables must be added to `.env.example` with safe placeholders and validated in `packages/env` when consumed by application code.
 
@@ -62,6 +65,7 @@ Database-changing commands require deliberate confirmation and a correctly targe
 
 ## Where new work belongs
 
+- New product route: `src/app/(app)/<route>/page.tsx` — it automatically gets the sidebar/header shell. Add its nav entry in `src/components/app-shell/sidebar.tsx` and document it in `docs/SCREENS.md`.
 - New product capability: `src/modules/<feature>` once a domain module is needed.
 - App-only visual block: `src/components` or inside its owning feature module.
 - Reusable UI primitive: `packages/ui/src/components`.
@@ -94,6 +98,7 @@ The Vercel project is `luiz-felipe-pacificos-projects/tabularium`. Its Root Dire
 - `docs/SECURITY.md`: mandatory security rules for credentials, tokens, rate limiting, and access control.
 - `docs/DATA_MODEL.md`: data modeling conventions and the domain schema.
 - `docs/ROADMAP.md`: MVP scope and the phased plan after it.
+- `docs/SCREENS.md`: every route in the app shell — purpose, data it needs, and backend TODOs.
 - `docs/BEST_PRACTICES.md`: engineering and repository policies.
 - `docs/BRANDING.md`: visual system and interface rules.
 - `docs/CLAUDE.md` and `docs/CODEX.md`: tool-specific working instructions.

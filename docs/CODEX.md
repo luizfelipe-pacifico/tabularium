@@ -23,13 +23,19 @@ Tabularium is an early-stage TypeScript monorepo using pnpm, Turborepo, Next.js,
 - Keep business capabilities feature-based under `src/modules` as they are introduced.
 - Keep app-only components in `src/components` and shared UI primitives in `packages/ui/src/components`.
 - Keep database schema/client concerns in `packages/db` and environment validation in `packages/env`.
-- Never expose or version secrets.
+- Never expose, version, log, quote, screenshot, or emit through tools any password, token, cookie, API key, connection string, private key, database value, OAuth/OIDC value, or environment-variable value.
+- Treat personal names, usernames, emails, absolute local paths, provider/account/team/project identifiers, deployment IDs, private URLs, infrastructure details, internal file names, architecture notes, roadmaps, diagnostics, and operational metadata as confidential internal information.
+- Keep `.env.example` to required variable names with empty values or clearly fake placeholders. Never derive its values from `.env`, provider dashboards, CLI output, logs, or production.
+- Never put internal documentation, source paths, component/file names, design/debug guides, environment data, deployment metadata, or staff identities in public UI copy.
+- Never add a public debug, style-guide, playground, diagnostics, admin, preview, or internal-reference route without an explicit request and appropriate access control. Documentation stays in `docs/`.
+- Redact sensitive command output and logs before reporting them. Avoid reading or printing secret values when names/presence checks are sufficient.
 - Update `README.md` and `docs/HOW-IT-WORKS.md` whenever setup, architecture, commands, or behavior changes.
-- Use Bootstrap Icons for new UI icons when available and document any exception.
+- Use `lucide-react` for all UI icons — the project's single icon family, already wired into shadcn (`components.json`: `"iconLibrary": "lucide"`) and every existing component; document any exception.
 
 ## Quality and verification
 
 - Add or update tests in proportion to the change.
 - Run available type checks and builds, plus relevant linting/tests when introduced.
 - Clearly report validations and remaining limitations.
+- Before every build or deploy, scan public source and documentation for secrets, personal data, absolute paths, internal IDs, internal-only routes, and implementation details exposed as UI copy. Remove findings or stop the deployment.
 - Use Conventional Commits only when the user requests a commit.

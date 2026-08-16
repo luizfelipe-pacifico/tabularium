@@ -92,6 +92,7 @@ tabularium/
 - [Security baseline](docs/SECURITY.md)
 - [Data model](docs/DATA_MODEL.md)
 - [Roadmap](docs/ROADMAP.md)
+- [Screens](docs/SCREENS.md)
 - [Claude working instructions](docs/CLAUDE.md)
 - [Codex working instructions](docs/CODEX.md)
 - [Next.js agent rules](docs/NEXTJS-AGENT-RULES.md)

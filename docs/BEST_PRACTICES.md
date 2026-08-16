@@ -78,9 +78,9 @@ General naming and depth conventions:
 
 ## Icons and assets
 
-- Source all UI icons from [Bootstrap Icons](https://icons.getbootstrap.com/) instead of mixing icon sets, hand-drawn SVGs, or icons copied from random sites. Use the Bootstrap Icons MCP server when configured to search and fetch icons by name; otherwise install the `bootstrap-icons` package or copy the SVG markup directly from the site.
-- Bootstrap Icons (over 2,000 icons, including brand marks such as GitHub, Google, Apple, and others) is MIT-licensed by the Bootstrap team: free for personal and commercial use, no attribution required. Use any icon in the set, including brand icons, without hesitation — the license already clears it.
-- Only reach for a different icon source when Bootstrap Icons genuinely lacks the icon needed, and document the exception (source and license) where the icon is used.
+- Use [`lucide-react`](https://lucide.dev/) for all UI icons instead of mixing icon sets, hand-drawn SVGs, or icons copied from random sites. It's already the project's icon library end to end: `components.json`'s `"iconLibrary": "lucide"`, every component in `packages/ui`, and every app route import from it.
+- `lucide-react` is ISC-licensed (MIT-equivalent terms): free for personal and commercial use, no attribution required. Use any icon in the set without hesitation.
+- Only reach for a different icon source when lucide genuinely lacks the icon needed, and document the exception (source and license) where the icon is used. Never mix a second icon family in — `docs/BRANDING.md` requires "a single icon family with consistent stroke weight."
 
 ## Branches and review
 
@@ -165,8 +165,7 @@ Never modify an already published version. Record meaningful changes in a change
 - [Folder Structure Best Practices: The Complete Guide](https://www.suitefiles.com/guide/the-guide-to-folder-structures-best-practices-for-professional-service-firms-and-more/)
 - [Organizing Project Folder Structure: Function-Based vs Feature-Based](https://medium.com/@ikonija.bogojevic/organizing-project-folder-structure-function-based-vs-feature-based-168596b6d169)
 - [Standard Go Project Layout](https://github.com/golang-standards/project-layout)
-- [Bootstrap Icons](https://icons.getbootstrap.com/)
-- [Bootstrap Icons license (MIT)](https://github.com/twbs/icons/blob/main/LICENSE)
+- [Lucide icons](https://lucide.dev/)
 - [OWASP Secure Coding Practices Checklist](https://owasp.org/www-project-secure-coding-practices-quick-reference-guide/stable-en/02-checklist/05-checklist)
 - [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
 - [Semantic Versioning 2.0.0](https://semver.org/)
