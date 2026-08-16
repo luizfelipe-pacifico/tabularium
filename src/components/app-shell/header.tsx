@@ -4,7 +4,34 @@ import { Bell, CheckCircle2, Menu, RefreshCw } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@tabularium/ui/components/dropdown-menu";
+
 import { ModeToggle } from "@/components/mode-toggle";
+
+const notifications = [
+  {
+    title: "Demanda #1042 escalada",
+    detail: "Prioridade alterada para Crítica pelo operador Ana Souza.",
+    time: "há 12 min",
+  },
+  {
+    title: "Nova demanda registrada",
+    detail: "\"Falha de sincronização no módulo de notas\" aguardando triagem.",
+    time: "há 47 min",
+  },
+  {
+    title: "Etapa da jornada concluída",
+    detail: "Demanda #1029 avançou para Validação.",
+    time: "há 2 h",
+  },
+] as const;
 
 const PAGE_META: Record<string, { eyebrow: string; title: string }> = {
   "/dashboard": { eyebrow: "Operational intelligence", title: "Demand overview" },
@@ -53,10 +80,27 @@ export function Header({ onOpenSidebar }: { onOpenSidebar: () => void }) {
           <RefreshCw size={17} className={refreshing ? "spin" : ""} />
           <span>{refreshing ? "Refreshing" : "Refresh"}</span>
         </button>
-        <button className="icon-button notification-button" aria-label="Notifications">
-          <Bell size={18} />
-          <span>3</span>
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={<button className="icon-button notification-button" aria-label="Notifications" />}
+          >
+            <Bell size={18} />
+            <span>{notifications.length}</span>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side="bottom" align="end" className="w-[320px]">
+            <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {notifications.map((item) => (
+              <DropdownMenuItem key={item.title} className="flex-col items-start gap-1 whitespace-normal">
+                <div className="flex w-full items-center justify-between gap-2">
+                  <strong className="text-foreground">{item.title}</strong>
+                  <span className="shrink-0 text-[10px] text-muted-foreground">{item.time}</span>
+                </div>
+                <span className="text-muted-foreground">{item.detail}</span>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
         <ModeToggle />
       </div>
     </header>
