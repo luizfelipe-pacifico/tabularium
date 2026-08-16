@@ -34,11 +34,12 @@ tabularium/
 
 1. Root commands invoke Next.js directly; database commands use Turborepo to target `packages/db`.
 2. Root `next.config.ts` loads `.env` before Next.js configuration and environment validation run.
-3. The App Router starts at `src/app/layout.tsx` (fonts, theme provider). Every product route lives under the `src/app/(app)/` route group, whose `layout.tsx` wraps `{children}` in `AppShell` — the persistent sidebar and header. `/` renders the Overview page; see `docs/SCREENS.md` for every other route.
+3. The App Router starts at `src/app/layout.tsx` (fonts, theme provider). The public marketing site lives under `src/app/(marketing)/` (`/`, `/recursos`, `/sobre`). Every product route lives under the `src/app/(app)/` route group, whose `layout.tsx` wraps `{children}` in `AppShell` — the persistent sidebar and header, starting at `/dashboard`; see `docs/SCREENS.md` for every other route.
 4. App-specific React components live in `src/components`. `src/components/app-shell/` holds the sidebar, header (including the Light/Dark/System theme toggle), and the shared `PageHeader` every route uses.
-5. Shared styles and UI primitives come from `packages/ui` through `@tabularium/ui/*` imports.
-6. Server environment variables are validated by `packages/env/src/server.ts`. Browser variables, when added, must be explicitly declared in `packages/env/src/web.ts`.
-7. Database code imports the client boundary from `packages/db`. Prisma reads `packages/db/prisma/schema/schema.prisma` and uses `DATABASE_URL` from the root `.env`.
+5. `src/proxy.ts` gates every `(app)` route behind a localhost-only check (no real authentication exists yet) and stamps `getCurrentOrganizationId()` (`src/lib/organization.ts`) onto the request — a placeholder single-tenant ID that the future registration/login flow will replace with a real session-derived value.
+6. Shared styles and UI primitives come from `packages/ui` through `@tabularium/ui/*` imports.
+7. Server environment variables are validated by `packages/env/src/server.ts`. Browser variables, when added, must be explicitly declared in `packages/env/src/web.ts`.
+8. Database code imports the client boundary from `packages/db`. Prisma reads `packages/db/prisma/schema/schema.prisma` and uses `DATABASE_URL` from the root `.env`.
 
 ## Environment variables
 
