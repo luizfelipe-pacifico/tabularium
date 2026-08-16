@@ -9,6 +9,7 @@ import {
   LayoutDashboard,
   LifeBuoy,
   ListChecks,
+  LogOut,
   Milestone,
   PlugZap,
   Settings,
@@ -109,6 +110,10 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
                 <item.icon className="mr-2 h-4 w-4" /> {item.label}
               </DropdownMenuItem>
             ))}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem render={<Link href="/" onClick={onClose} />}>
+              <LogOut className="mr-2 h-4 w-4" /> Sair
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
