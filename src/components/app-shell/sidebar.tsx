@@ -58,7 +58,7 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
   return (
     <aside className={`app-sidebar ${open ? "is-open" : ""}`}>
       <div className="brand-lockup">
-        <Image src="/favicon.ico" width={46} height={46} alt="Tabularium symbol" priority />
+        <Image src="/brand/icon-tabularium.png" width={46} height={46} alt="Tabularium symbol" priority />
         <div>
           <p className="brand-name">Tabularium</p>
           <p className="brand-kicker">Demand registry</p>

@@ -233,6 +233,44 @@ button { color: inherit; }
 /* Status pill (Integrations and other planned/status badges) */
 .status-pill { display: inline-flex; width: fit-content; border: 1px solid rgb(184 119 61 / 25%); border-radius: 999px; background: rgb(184 119 61 / 10%); padding: 4px 8px; color: var(--amber); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
 
+/* Vintage photo treatment for the public site — see docs/DESIGN-LOG.md */
+.photo-vintage { filter: grayscale(.85) contrast(1.18) brightness(.96); }
+.photo-vintage-overlay { background: linear-gradient(135deg, var(--ebony), var(--amber)); mix-blend-mode: multiply; opacity: .5; }
+.dark .photo-vintage-overlay { opacity: .62; }
+
+/* Public-site (marketing) primitives — deliberately plainer than the app: moderate radii,
+   subtle borders/shadows instead of glassmorphism or heavy tinted glows, per docs/BRANDING.md */
+.site-header { position: sticky; top: 0; z-index: 40; border-bottom: 1px solid var(--line); background: var(--parchment); }
+.site-nav { display: flex; align-items: center; justify-content: space-between; max-width: 1120px; margin: 0 auto; padding: 18px 24px; }
+.site-brand { display: flex; align-items: center; gap: 10px; }
+.site-brand span { font-family: var(--font-playfair), Georgia, serif; font-size: 19px; font-weight: 700; }
+.site-nav-links { display: flex; align-items: center; gap: 28px; font-size: 13px; font-weight: 600; }
+.site-nav-links a:not(.button-primary) { color: var(--graphite); text-decoration: none; transition: color 160ms ease; }
+.site-nav-links a:not(.button-primary):hover { color: var(--ebony); }
+.button-primary { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--radius-md, 6px); background: var(--ebony); color: #fffdf8; padding: 10px 20px; font-size: 13px; font-weight: 700; text-decoration: none; box-shadow: 0 1px 2px rgb(26 17 10 / 8%); transition: background 160ms ease; }
+.button-primary:hover { background: #2a1c11; }
+.button-secondary { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: var(--radius-md, 6px); background: var(--surface); color: var(--ebony); padding: 10px 20px; font-size: 13px; font-weight: 600; text-decoration: none; transition: border-color 160ms ease; }
+.button-secondary:hover { border-color: rgb(184 119 61 / 45%); }
+.site-section { max-width: 1120px; margin: 0 auto; padding: 72px 24px; }
+.site-eyebrow { color: var(--amber); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.site-card { border: 1px solid var(--line); border-radius: var(--radius-lg, 8px); background: var(--surface); box-shadow: 0 1px 2px rgb(26 17 10 / 5%); }
+.site-footer { border-top: 1px solid var(--line); padding: 32px 24px; }
+.site-footer-inner { display: flex; max-width: 1120px; margin: 0 auto; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; color: var(--graphite); font-size: 12px; }
+
+@media (max-width: 720px) {
+  .site-nav-links { gap: 16px; }
+}
+
+/* Hero background video, with a still-image fallback for prefers-reduced-motion and for
+   when no video source has been generated yet — see docs/DESIGN-LOG.md "Hero video." */
+.hero-media { position: absolute; inset: 0; overflow: hidden; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero-media-still { position: absolute; inset: 0; display: none; background-position: center; background-size: cover; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { display: none; }
+  .hero-media-still { display: block; }
+}
+
 /* Dark-mode adjustments for literal (non-token) colors used above */
 .dark .priority-critical { border-color: rgb(149 61 52 / 45%); background: rgb(149 61 52 / 22%); color: #e59087; }
 .dark .priority-high { border-color: rgb(184 119 61 / 45%); background: rgb(184 119 61 / 20%); color: #e3ab78; }

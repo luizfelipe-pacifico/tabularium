@@ -10,9 +10,12 @@ Tabularium is a pnpm/Turborepo monorepo. The current product is a Next.js 16 app
 tabularium/
 ├── src/                      # Deployable root Next.js application
 │   ├── app/                  # App Router entry points and layouts
-│   │   └── (app)/            # Every product route; wrapped in the sidebar/header shell
+│   │   ├── (app)/            # Every product route; wrapped in the sidebar/header shell
+│   │   ├── (marketing)/      # Public site (Home, Recursos, Sobre); one nav/footer layout
+│   │   └── login/            # Standalone; no real auth yet, see docs/DESIGN-LOG.md
 │   ├── components/           # Components owned by the web app
-│   │   └── app-shell/        # Sidebar, header, and shared page-header used by every (app) route
+│   │   ├── app-shell/        # Sidebar, header, and shared page-header used by every (app) route
+│   │   └── landing/          # Animation primitives and icons used by the (marketing) site
 │   └── lib/                   # App-only data/helpers (currently mock data — see docs/SCREENS.md)
 ├── packages/
 │   ├── config/               # Shared TypeScript configuration
@@ -99,6 +102,7 @@ The Vercel project is `luiz-felipe-pacificos-projects/tabularium`. Its Root Dire
 - `docs/DATA_MODEL.md`: data modeling conventions and the domain schema.
 - `docs/ROADMAP.md`: MVP scope and the phased plan after it.
 - `docs/SCREENS.md`: every route in the app shell — purpose, data it needs, and backend TODOs.
+- `docs/DESIGN-LOG.md`: the public marketing site (`src/app/(marketing)/`, `/login`) — decisions, image sources, and the photo-treatment spec.
 - `docs/BEST_PRACTICES.md`: engineering and repository policies.
 - `docs/BRANDING.md`: visual system and interface rules.
 - `docs/CLAUDE.md` and `docs/CODEX.md`: tool-specific working instructions.
