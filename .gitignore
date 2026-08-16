@@ -52,6 +52,13 @@ lerna-debug.log*
 .turbo
 .nx
 
+# Tool-specific skill symlink mirrors (Windows git can't track these as
+# symlinks — core.symlinks is off — so they'd otherwise be committed as full
+# duplicates of .agents/skills/; regenerate locally with `npx skills add`)
+.claude/skills
+.codex/skills
+.gemini/skills
+
 # Better-T-Stack
 .alchemy
 .vercel
