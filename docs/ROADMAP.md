@@ -15,7 +15,7 @@ The MVP is: **one operator can log in, register a demand, see it scored and list
 - [ ] **Demand CRUD wired to the UI**: replace the hardcoded `demands`/`metricCards` arrays in `DashboardShell` with Server Component data fetching and Server Actions for create/update, each with `zod` input validation and a server-side authorization check.
 - [ ] **Live metrics**: "Active total", "Open", "In progress", "Completed" computed from the database instead of hardcoded strings.
 - [ ] **Scoring v0**: implement the simple weighted formula described in `docs/DATA_MODEL.md` and store it on `Demand.score`; refine the weights later, but the mechanism (stored, server-computed, single place to tune) should exist from the start.
-- [ ] **Brand tokens applied**: `packages/ui/src/styles/globals.css` still uses the default shadcn neutral palette; replace it with the tokens defined in `docs/BRANDING.md` so the MVP actually looks like the product, not a template.
+- [x] **Brand tokens applied**: `packages/ui/src/styles/globals.css` carries the `docs/BRANDING.md` palette, type, and radii (reconciled 2026-10-25; the public site shows this step as done).
 - [ ] **Security baseline enforced**: rate limiting on the auth and mutation endpoints, the security headers listed in `docs/SECURITY.md` §6, and the review checklist in `docs/SECURITY.md` §10 passed before this is considered done.
 - [ ] **Minimum verification**: type checks and build green (`pnpm run check-types`, `pnpm run build`); at least one automated test covering the create-demand and status-change flows.
 

@@ -14,17 +14,19 @@ export const metadata: Metadata = {
 export default function SobrePage() {
   return (
     <>
-      <section className="site-section site-feature" aria-labelledby="sobre-title">
-        <Reveal className="site-feature-copy">
+      <section className="lp-hero" aria-labelledby="sobre-title">
+        <div className="site-container site-feature">
+        <div className="site-feature-copy lp-hero-copy">
+          <p className="lp-eyebrow">Sobre o projeto</p>
           <h1 id="sobre-title" className="site-display">
             Um projeto pessoal, construído em público.
           </h1>
-          <p className="site-lead text-[var(--graphite)]">
+          <p className="site-lead">
             O Tabularium nasceu como estudo de arquitetura, produto e design, para resolver um
             problema conhecido: organizar as demandas de uma equipe pequena sem depender de
             planilhas soltas.
           </p>
-        </Reveal>
+        </div>
         <Reveal from="right" delay={120}>
           <Parallax speed={0.06}>
             <div className="site-feature-media">
@@ -39,16 +41,17 @@ export default function SobrePage() {
             </div>
           </Parallax>
         </Reveal>
+        </div>
       </section>
 
-      <section className="site-band" aria-labelledby="arquitetura-title">
-        <div className="site-section site-split">
+      <section className="lp-field lp-parchment" aria-labelledby="arquitetura-title">
+        <div className="site-container site-split">
           <Reveal>
             <h2 id="arquitetura-title" className="site-h2">
               Arquitetura sólida, evoluindo em etapas.
             </h2>
           </Reveal>
-          <Reveal delay={90} className="space-y-5">
+          <Reveal delay={90} className="lp-stack">
             <p className="site-body">
               O Tabularium roda sobre PostgreSQL e Prisma, com o modelo de dados, as regras de
               segurança e a arquitetura documentados desde o início.

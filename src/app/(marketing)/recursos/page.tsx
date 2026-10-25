@@ -41,19 +41,18 @@ const features = [
 export default function RecursosPage() {
   return (
     <>
-      <section className="site-section pb-0" aria-labelledby="recursos-title">
-        <Reveal className="max-w-3xl space-y-6">
-          <h1 id="recursos-title" className="site-display">
+      <section className="lp-hero" aria-labelledby="recursos-title">
+        <div className="site-container lp-hero-copy">
+          <p className="lp-eyebrow">Recursos</p>
+          <h1 id="recursos-title" className="site-display lp-narrow-display">
             Quatro peças que sustentam o fluxo de trabalho.
           </h1>
-          <p className="site-lead text-[var(--graphite)]">
-            Cada recurso resolve uma parte do problema de acompanhar demandas em equipe.
-          </p>
-        </Reveal>
+          <p className="site-lead">Cada recurso resolve uma parte do problema de acompanhar demandas em equipe.</p>
+        </div>
       </section>
 
-      <section className="site-section" aria-label="Lista de recursos">
-        <div className="feature-grid">
+      <section className="lp-field lp-parchment" aria-label="Lista de recursos">
+        <div className="site-container feature-grid">
           {features.map((feature, index) => (
             <Reveal key={feature.title} delay={(index % 2) * 80}>
               <article className="feature-item">
@@ -74,8 +73,8 @@ export default function RecursosPage() {
         </div>
       </section>
 
-      <section className="site-band" aria-labelledby="organizacao-title">
-        <div className="site-section site-feature">
+      <section className="lp-field lp-tone" aria-labelledby="organizacao-title">
+        <div className="site-container site-feature">
           <Reveal from="left">
             <div className="site-feature-media">
               <Image
@@ -100,7 +99,8 @@ export default function RecursosPage() {
         </div>
       </section>
 
-      <section className="site-section site-feature site-feature-reverse" aria-labelledby="planejamento-title">
+      <section className="lp-field lp-surface" aria-labelledby="planejamento-title">
+        <div className="site-container site-feature site-feature-reverse">
         <Reveal from="right">
           <div className="site-feature-media">
             <Image
@@ -122,6 +122,7 @@ export default function RecursosPage() {
             desatualizada.
           </p>
         </Reveal>
+        </div>
       </section>
 
       <section className="site-cta" aria-labelledby="recursos-cta-title">

@@ -2,7 +2,35 @@
 
 A working log of the marketing/public site (everything outside `src/app/(app)/`): decisions made, why, what changed between iterations, image sources, and open improvement points. `docs/BRANDING.md` stays the prescriptive rulebook; this document is the history and the punch list, updated every time the public site changes materially.
 
-## Current state (2026-08-16)
+## Current state (2026-10-25), iteration 5
+
+The home page (`/`) is now one long, section-anchored landing page modelled on the owner's other open-source project (same palette and brand system), refined with three design skills installed in `.claude/skills` and pinned in `skills-lock.json`: `impeccable`, Emil Kowalski's `emil-design-eng`, and `design-taste-frontend`. `/recursos`, `/sobre` and `/login` remain as separate routes and share the same primitives.
+
+- **Light-only public site.** The page always renders in the light theme; a few sections are deliberately Ebony (hero, security, the name). `.site-light` on the marketing wrapper re-declares the light tokens so the `.dark` class next-themes sets for the product app cannot leak in. This fixed text that turned light-on-light (contrast 1.02:1) for visitors whose system was in dark mode.
+- **Section order on `/`:** hero (Ebony) · O problema · O método (5 steps) · Pontuação (illustrative score sheet) · O sistema hoje (real screen captures carousel) · Seis áreas · Sete pilares (post-MVP roadmap) · Segurança (Ebony) · quote · O nome (Ebony) · Oito pranchas (carousel) · A coleção · Onde estamos (MVP checklist) · closing call. The header links are anchors with a scrollspy.
+- **Fields:** Parchment, a lighter surface (`--lp-surface`), a tone band (`--lp-tone`) and Ebony (`--lp-field`), separated by hairlines. Amber text on light fields uses `--amber-ink` (#8a5224, 5.2 to 6:1); filled Amber buttons use `--amber-strong` (#a3622c, white text 4.75:1). Brand Amber (#b8773d) stays for marks, rules and dots.
+- **Plates.** Line-art SVGs drawn for Tabularium (`src/components/landing/plates.tsx`): the hero emblem is the brand column on a timeline inside a dial; the Tabularium building has seven columns for the seven pillars; hourglass, ledger, vault, compass, ornament and astrolabe rings. Strokes marked `.plate-draw` draw themselves when their `Reveal` enters the viewport. The 14 hand-inked `.webp` illustrations are numbered I to XIV as "pranchas".
+- **Real screens.** `public/assets/landing/screens/*.webp` are captures of the production build at 1440×900 (Visão geral, Demandas ativas, Jornada, Histórico). Screens whose copy cites internal docs (Board, Roadmap, and others) are excluded, and the sample operator name that matches a real person is swapped for a fictional one in the capture only.
+- **Honesty rules carried from the reference:** an "Em construção" note in the hero, an "Exemplo ilustrativo" label on the score sheet (the 212 pts example mirrors the dashboard mock), the MVP checklist with real statuses, and a note that the license file does not exist yet.
+
+### Skill gates and documented exceptions
+
+- `design-taste-frontend` lint still flags 12 eyebrows and the 01 to 05 step numbers. Both are part of the owner's reference pattern, so they stay (the skill's own rule: when the brand requires a banned device, keep it and say so).
+- `impeccable detect` flags the Amber left rule on the name statement (reference pattern, kept). The 3px top border on step cards became a clipped `::before` cap so the rounded corners stay clean.
+- Motion follows `emil-design-eng`: custom ease-out curves, transform and opacity only, press feedback (`scale(0.97)`), hover gated to fine pointers, `prefers-reduced-motion` respected, reveals hidden only under `@media (scripting: enabled)`. The hero title and lead rise without fading so they paint on the first frame (they are the LCP).
+- Phones get their own composition: long card runs (areas, pillars, collection) become swipe rows with scroll snap, carousel tabs scroll in one line, the back-to-top button appears only after the first screen.
+
+### Measured (local production build, Lighthouse 12, same engine as PageSpeed Insights)
+
+| Route | Mobile perf | Desktop perf | Accessibility | Best practices | SEO |
+| --- | --- | --- | --- | --- | --- |
+| `/` | 94 (median of 3) | 100 | 100 | 100 | 100 |
+| `/recursos` | 93 | 100 | 100 | 100 | 100 |
+| `/sobre` | 95 | 100 | 100 | 100 | 100 |
+
+Baseline before this work (production, `/`): mobile 71 (LCP 4.6s, TBT 490ms), desktop 99, accessibility 96. axe-core contrast audit: 0 AA failures on all public routes at 390 and 1440, with the OS in light and in dark mode (278 before the light-only fix). `experimental.inlineCss` was tried and reverted: it measured worse (LCP 3.3s vs 3.1s).
+
+## Previous state (2026-08-16)
 
 The public site is a small multi-route site instead of one long scrolling page, matching how the product itself works: `docs/SCREENS.md` already treats every app destination as its own route, and the public site follows the same logic.
 
@@ -39,7 +67,7 @@ Every animation on the public site goes through one of four dependency-free prim
 | `Reveal` | `reveal.tsx` | Fades and slides an element in the first time it scrolls into view (IntersectionObserver, fires once). | `children`, `delay?` (ms), `from?` (`"up"` default, `"left"`, `"right"`), `className?` | Wrap essentially every section-level block — headings, cards, images. This is the default; almost nothing on the page should just pop in unanimated. |
 | `Parallax` | `parallax.tsx` | Translates its content vertically at a fraction of scroll speed (rAF-throttled scroll listener), so it drifts slower/faster than the page. | `children`, `speed?` (default `0.3`; use `0.06–0.12` for a subtle effect on a bordered photo, higher only for a full-bleed background), `className?`, `style?` | Wrap hero and section-lead photographs. Keep `speed` low (≤ 0.12) outside a true full-bleed background — this is a vintage site, not a scroll-jacking one. |
 | `TiltCard` | `tilt-card.tsx` | Tracks the mouse over the card and applies a 3D `rotateX`/`rotateY` tilt toward the cursor, resetting smoothly on mouse-leave. | `children`, `className?` | Any interactive card in a grid (feature cards, pillar cards). Skip it on plain text blocks or full-width photos — the tilt only reads well on a bounded card. |
-| `CountUp` | `count-up.tsx` | Animates a number from 0 to `target` (eased, ~1.6s) the first time it scrolls into view. | `target` (number), `duration?` (ms, default `1600`), `prefix?`, `suffix?` | Only for numbers that are actually true today — a count of real product concepts (features, roadmap pillars, MVP checklist items), never an invented usage metric. See "grounded numbers" below. |
+| `CountUp` | `count-up.tsx` | Renders the real number on the server, then (below the fold, motion allowed) counts up from 0 the first time it scrolls into view. | `target` (number), `duration?` (ms, default `1600`), `prefix?`, `suffix?` | Only for numbers that are actually true today — a count of real product concepts (features, roadmap pillars, MVP checklist items), never an invented usage metric. See "grounded numbers" below. |
 
 **Grounded numbers rule for `CountUp`:** every number animated with `CountUp` must be independently verifiable by reading `docs/ROADMAP.md` or `docs/SCREENS.md` at the time it's written (e.g. "4 recursos", "7 pilares no roadmap") — not a plausible-sounding usage stat. Iteration 2 cut `CountUp` entirely because its first use (1,280+ tasks, 350+ people) was invented; iteration 3 restores it under this rule instead of removing the technique.
 
@@ -101,7 +129,7 @@ Apply `.photo-vintage` to a real photograph's `<Image>` (an overlay `<div classN
 
 ## Icons
 
-Public-site icons are inlined Bootstrap Icons SVGs (`src/components/landing/bi-icons.tsx`), by explicit request, kept separate from the app's `lucide-react` icons (`docs/BEST_PRACTICES.md`). Only add a new one here if the public site genuinely needs it — don't grow this file speculatively.
+Public-site icons are inlined Bootstrap Icons 1.11.3 SVGs (`src/components/landing/bi-icons.tsx`, generated from the official files, paths unmodified), by explicit request, kept separate from the app's `lucide-react` icons (`docs/BEST_PRACTICES.md`). Only add a new one here if the public site genuinely needs it — don't grow this file speculatively.
 
 ## What got cut in iteration 2
 
@@ -123,12 +151,13 @@ The user supplied six custom vintage-illustration assets directly (`public/asset
 
 ## Open improvement points
 
-- [ ] Generate or otherwise source `public/videos/hero.mp4` — blocked on Higgsfield MCP not being connected in this environment (or supply a video another way); keep it ≤ 4MB desktop / ≤ 2MB mobile per the researched performance guidance. The hero currently falls back to `hero-archive-order.webp` as its poster, which is a legitimate look on its own, not just a stopgap.
+- [ ] Public `/login` leads to `/dashboard`, which `src/proxy.ts` redirects to `/` outside localhost; the hero CTA should point somewhere useful until auth ships.
+- [ ] Generate or otherwise source `public/videos/hero.mp4` (the current `/` hero no longer uses a video; keep this only if a video comes back) — blocked on Higgsfield MCP not being connected in this environment (or supply a video another way); keep it ≤ 4MB desktop / ≤ 2MB mobile per the researched performance guidance. The hero currently falls back to `hero-archive-order.webp` as its poster, which is a legitimate look on its own, not just a stopgap.
 - [ ] Add a real `/contato` page or form; the hero's "Contato" button is a bare `mailto:` link today.
 - [ ] `/recursos` and `/sobre` are lighter on imagery than Home; consider whether they need another illustration once more are available.
 - [ ] No automated visual regression check exists for the public site; verification today is `pnpm build` + a manual `curl` smoke pass per route (see `docs/SCREENS.md`'s verification pattern for the app routes — the public site doesn't have an equivalent doc entry yet).
 - [ ] Copy has not been reviewed by anyone other than the person who wrote it — get a second read before this is genuinely public-facing.
-- [ ] `docs/ROADMAP.md`'s MVP checklist item "Brand tokens applied" is still unchecked even though the brand palette is now live in `packages/ui/src/styles/globals.css` — worth reconciling next time that file is touched, unrelated to this iteration but noticed while counting checklist items for the `CountUp` stat.
+- [x] `docs/ROADMAP.md`'s MVP checklist item "Brand tokens applied" reconciled on 2026-10-25. Previously it was still unchecked even though the brand palette is now live in `packages/ui/src/styles/globals.css` — worth reconciling next time that file is touched, unrelated to this iteration but noticed while counting checklist items for the `CountUp` stat.
 
 ## References
 
