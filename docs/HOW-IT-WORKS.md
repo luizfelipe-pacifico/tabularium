@@ -48,7 +48,7 @@ There is exactly one local `.env`, at the repository root. Create it from `.env.
 - `DATABASE_URL` is required by the application and Prisma.
 - `HOSTNAME`, `PORT`, and `LOCAL_URL` define the local server at `http://localhost:3000`.
 - `NEXT_PUBLIC_APP_URL` defines the canonical public project URL (`https://tabularium-tech.vercel.app`).
-- Additional PostgreSQL variables in `.env.example` support local tooling/providers but do not replace `DATABASE_URL`.
+- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`, and `POSTGRES_PORT` configure the local Docker PostgreSQL in `docker-compose.yml` (bound to `127.0.0.1` only). They do not replace `DATABASE_URL`, which must point at that container for local work.
 - New variables must be added to `.env.example` with safe placeholders and validated in `packages/env` when consumed by application code.
 
 ## Main commands
@@ -60,6 +60,7 @@ There is exactly one local `.env`, at the repository root. Create it from `.env.
 | `pnpm start` | Start the production server after a successful build. |
 | `pnpm check-types` | Type-check the root Next.js application. |
 | `pnpm build` | Create production builds. |
+| `pnpm db:up` / `pnpm db:down` | Start/stop the local Docker PostgreSQL (`docker-compose.yml`). |
 | `pnpm db:generate` | Regenerate the Prisma client. |
 | `pnpm db:push` | Push the schema to a configured database; changes external data. |
 | `pnpm db:migrate` | Run migrations; changes external data. |

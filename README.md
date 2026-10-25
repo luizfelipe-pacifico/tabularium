@@ -24,8 +24,13 @@ pnpm install
 
 This project uses PostgreSQL with Prisma.
 
-1. Make sure you have a PostgreSQL database set up.
-2. Copy `.env.example` to `.env` in the repository root and fill in your PostgreSQL connection details. The root `.env` is the only local environment file used by the workspace.
+1. Copy `.env.example` to `.env` in the repository root. The root `.env` is the only local environment file used by the workspace. For local development, fill the `POSTGRES_*` variables and point `DATABASE_URL` at them, e.g. `postgresql://<user>:<password>@localhost:5432/<db>?schema=public`.
+2. Start the local PostgreSQL container (requires Docker Desktop):
+
+```bash
+pnpm run db:up     # docker compose up -d --wait
+pnpm run db:down   # stop it; data persists in the named volume
+```
 
 3. Apply the schema to your database:
 
@@ -106,6 +111,7 @@ Deployment and environment requirements are documented in the Vercel section of 
 - `pnpm run build`: Build all applications
 - `pnpm run start`: Start the production Next.js server after a build
 - `pnpm run check-types`: Check TypeScript types across all apps
+- `pnpm run db:up` / `pnpm run db:down`: Start/stop the local Docker PostgreSQL (`docker-compose.yml`)
 - `pnpm run db:push`: Push schema changes to database
 - `pnpm run db:generate`: Generate database client/types
 - `pnpm run db:migrate`: Run database migrations

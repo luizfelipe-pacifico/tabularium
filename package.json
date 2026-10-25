@@ -13,7 +13,9 @@
     "db:push": "turbo run db:push -F @tabularium/db --",
     "db:studio": "turbo run db:studio -F @tabularium/db --",
     "db:generate": "turbo run db:generate -F @tabularium/db --",
-    "db:migrate": "turbo run db:migrate -F @tabularium/db --"
+    "db:migrate": "turbo run db:migrate -F @tabularium/db --",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down"
   },
   "dependencies": {
     "@prisma/client": "catalog:",
