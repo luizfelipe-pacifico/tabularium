@@ -24,8 +24,8 @@ pnpm install
 
 This project uses PostgreSQL with Prisma.
 
-1. Copy `.env.example` to `.env` in the repository root. The root `.env` is the only local environment file used by the workspace. For local development, fill the `POSTGRES_*` variables and point `DATABASE_URL` at them, e.g. `postgresql://<user>:<password>@localhost:5432/<db>?schema=public`.
-2. Start the local PostgreSQL container (requires Docker Desktop):
+1. Copy `.env.example` to `.env` in the repository root. The root `.env` is the only local environment file used by the workspace. For local development, fill the `POSTGRES_*` variables and point `DATABASE_URL` at them, e.g. `postgresql://<user>:<password>@localhost:5433/<db>?schema=public`.
+2. Start the local PostgreSQL container (requires Docker Desktop; it listens on `127.0.0.1:5433` by default so it never collides with a native PostgreSQL on 5432):
 
 ```bash
 pnpm run db:up     # docker compose up -d --wait
