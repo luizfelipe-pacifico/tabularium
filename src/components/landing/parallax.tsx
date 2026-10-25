@@ -17,7 +17,7 @@ export function Parallax({
 
   useEffect(() => {
     const node = ref.current;
-    if (!node) return;
+    if (!node || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let frame = 0;
 

@@ -2,37 +2,37 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-import { BiGraphUp, BiKanban, BiPeople, BiSignpost } from "@/components/landing/bi-icons";
 import { Reveal } from "@/components/landing/reveal";
 import { TiltCard } from "@/components/landing/tilt-card";
 
 export const metadata: Metadata = {
-  title: "Recursos — Tabularium",
-  description: "O que o Tabularium faz: quadro, jornada, pontuação e operadores.",
+  title: "Recursos",
+  description: "O que o Tabularium faz: quadro de demandas, jornada de cada pedido, pontuação de prioridade e operadores.",
+  alternates: { canonical: "/recursos" },
 };
 
 const features = [
   {
-    icon: BiKanban,
     image: "/assets/landing/feature-organized-records.webp",
+    alt: "Fichas saindo em fila de um arquivo de gavetas",
     title: "Quadro",
-    text: "As demandas ficam organizadas por status, aberta, em andamento ou concluída, e é possível ver a fila inteira num único quadro, sem precisar abrir cada item separadamente.",
+    text: "As demandas ficam organizadas por status, aberta, em andamento ou concluída, e é possível ver a fila inteira num único quadro, sem abrir cada item separadamente.",
   },
   {
-    icon: BiSignpost,
     image: "/assets/landing/feature-workflow-clarity.webp",
+    alt: "Um traço emaranhado que se desfaz num caminho reto até o alvo",
     title: "Jornada",
-    text: "Cada mudança de status fica registrada, quem mudou, quando mudou e por quê, formando um histórico completo de cada demanda desde a abertura até a entrega.",
+    text: "Cada mudança de status fica registrada, quem mudou, quando mudou e por quê, formando o histórico completo de cada demanda, da abertura até a entrega.",
   },
   {
-    icon: BiGraphUp,
     image: "/assets/landing/feature-priority-balance.webp",
+    alt: "Balança antiga pesando fichas contra uma moeda",
     title: "Pontuação",
     text: "Prioridade, categoria e tempo de espera se combinam numa pontuação única, para que a fila mostre primeiro o que realmente precisa de atenção.",
   },
   {
-    icon: BiPeople,
     image: "/assets/landing/feature-team-collaboration.webp",
+    alt: "Quatro mãos organizando fichas em grade sobre uma mesa",
     title: "Operadores",
     text: "A equipe responsável pelas demandas fica visível, com quantas estão ativas e quantas já foram concluídas por cada pessoa.",
   },
@@ -41,92 +41,103 @@ const features = [
 export default function RecursosPage() {
   return (
     <>
-      <section className="site-section text-center">
-        <Reveal>
-          <p className="site-eyebrow">recursos</p>
-          <h1
-            className="mx-auto mt-4 max-w-2xl text-4xl font-extrabold sm:text-5xl"
-            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-          >
-            Quatro peças que sustentam o fluxo de trabalho
+      <section className="site-section pb-0" aria-labelledby="recursos-title">
+        <Reveal className="max-w-3xl space-y-6">
+          <h1 id="recursos-title" className="site-display">
+            Quatro peças que sustentam o fluxo de trabalho.
           </h1>
-          <p className="mx-auto mt-4 max-w-lg text-[15px] text-[var(--graphite)]">
-            cada recurso resolve uma parte do problema de acompanhar demandas em equipe,
+          <p className="site-lead text-[var(--graphite)]">
+            Cada recurso resolve uma parte do problema de acompanhar demandas em equipe.
           </p>
         </Reveal>
       </section>
 
-      <section className="site-section grid gap-6 pt-0 sm:grid-cols-2">
-        {features.map((feature, index) => (
-          <Reveal key={feature.title} delay={index * 90}>
-            <TiltCard className="site-card h-full overflow-hidden">
-              <div className="relative aspect-[3/2]">
-                <Image src={feature.image} alt="" fill className="object-cover" />
-              </div>
-              <div className="p-8">
-                <span className="inline-flex size-12 items-center justify-center rounded-md bg-[var(--amber)]/12 text-[var(--amber)]">
-                  <feature.icon size={24} />
-                </span>
-                <h2
-                  className="mt-5 text-xl font-bold"
-                  style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
-                >
-                  {feature.title}
-                </h2>
-                <p className="mt-3 text-[15px] leading-relaxed text-[var(--graphite)]">{feature.text}</p>
-              </div>
-            </TiltCard>
+      <section className="site-section" aria-label="Lista de recursos">
+        <div className="feature-grid">
+          {features.map((feature, index) => (
+            <Reveal key={feature.title} delay={(index % 2) * 80}>
+              <article className="feature-item">
+                <TiltCard className="site-feature-media">
+                  <Image
+                    src={feature.image}
+                    alt={feature.alt}
+                    fill
+                    sizes="(min-width: 1680px) 680px, (min-width: 768px) 46vw, 100vw"
+                    className="object-cover"
+                  />
+                </TiltCard>
+                <h2 className="site-h3">{feature.title}</h2>
+                <p className="site-body">{feature.text}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="site-band" aria-labelledby="organizacao-title">
+        <div className="site-section site-feature">
+          <Reveal from="left">
+            <div className="site-feature-media">
+              <Image
+                src="/assets/landing/philosophy-classical-library.webp"
+                alt="Sala de biblioteca clássica com estantes, escada e mesa de estudo"
+                fill
+                sizes="(min-width: 900px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
           </Reveal>
-        ))}
+          <Reveal from="right" delay={90} className="site-feature-copy">
+            <h2 id="organizacao-title" className="site-h2">
+              Cada demanda no lugar certo.
+            </h2>
+            <p className="site-body">
+              O objetivo não é acumular ferramentas, é reduzir a quantidade de lugares onde uma
+              informação pode se perder. Quadro, jornada, pontuação e operadores compartilham os
+              mesmos dados, vistos de ângulos diferentes.
+            </p>
+          </Reveal>
+        </div>
       </section>
 
-      <section className="site-section grid items-center gap-12 border-t border-[var(--line)] md:grid-cols-2">
-        <Reveal from="left">
-          <div className="relative aspect-[3/2] overflow-hidden rounded-lg border border-[var(--line)] shadow-[0_1px_2px_rgb(26_17_10/8%)]">
-            <Image src="/assets/landing/feature-organized-records.webp" alt="Fichas organizadas saindo de um arquivo" fill className="object-cover" />
+      <section className="site-section site-feature site-feature-reverse" aria-labelledby="planejamento-title">
+        <Reveal from="right">
+          <div className="site-feature-media">
+            <Image
+              src="/assets/landing/philosophy-ruins-journey.webp"
+              alt="Caminho de pedra entre ruínas antigas seguindo até o sol no horizonte"
+              fill
+              sizes="(min-width: 900px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </Reveal>
-        <Reveal from="right" delay={100}>
-          <p className="site-eyebrow">organização</p>
-          <h2 className="mt-3 text-2xl font-extrabold" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
-            Cada demanda no lugar certo
+        <Reveal from="left" delay={90} className="site-feature-copy">
+          <h2 id="planejamento-title" className="site-h2">
+            O roadmap nasce da fila real.
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--graphite)]">
-            o objetivo não é acumular ferramentas, é reduzir a quantidade de lugares onde uma
-            informação pode se perder, então quadro, jornada, pontuação e operadores compartilham os
-            mesmos dados, vistos de ângulos diferentes,
-          </p>
-        </Reveal>
-      </section>
-
-      <section className="site-section grid items-center gap-12 border-t border-[var(--line)] md:grid-cols-2">
-        <Reveal from="left" className="md:order-2">
-          <div className="relative aspect-[3/2] overflow-hidden rounded-lg border border-[var(--line)] shadow-[0_1px_2px_rgb(26_17_10/8%)]">
-            <Image src="/assets/landing/feature-workflow-clarity.webp" alt="Caminho confuso se transformando num caminho claro até um alvo" fill className="object-cover" />
-          </div>
-        </Reveal>
-        <Reveal from="right" delay={100} className="md:order-1">
-          <p className="site-eyebrow">planejamento</p>
-          <h2 className="mt-3 text-2xl font-extrabold" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
-            O roadmap nasce da fila real
-          </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[var(--graphite)]">
-            as demandas registradas dia a dia alimentam o roadmap do produto, então o que entra em
+          <p className="site-body">
+            As demandas registradas dia a dia alimentam o roadmap do produto. O que entra em
             planejamento reflete o que a equipe realmente enfrenta, não uma lista separada e
-            desatualizada,
+            desatualizada.
           </p>
         </Reveal>
       </section>
 
-      <section className="site-section border-t border-[var(--line)] text-center">
-        <Reveal>
-          <h2 className="text-2xl font-extrabold" style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}>
-            Ver esses recursos funcionando,
-          </h2>
-          <Link href="/login" className="button-primary mt-6 inline-flex">
-            Entrar no Tabularium
-          </Link>
-        </Reveal>
+      <section className="site-cta" aria-labelledby="recursos-cta-title">
+        <div className="site-container site-cta-inner">
+          <Reveal>
+            <h2 id="recursos-cta-title" className="site-h2">
+              Veja esses recursos funcionando.
+            </h2>
+            <p className="site-lead">A fila de demandas, ordenada por pontuação, a um clique.</p>
+          </Reveal>
+          <Reveal delay={90} className="site-cta-actions">
+            <Link href="/login" className="button-accent">
+              Entrar no Tabularium
+            </Link>
+          </Reveal>
+        </div>
       </section>
     </>
   );

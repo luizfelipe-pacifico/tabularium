@@ -5,8 +5,9 @@ import Link from "next/link";
 import { BiArrowRightCircleFill } from "@/components/landing/bi-icons";
 
 export const metadata: Metadata = {
-  title: "Entrar — Tabularium",
-  description: "Entrar no Tabularium.",
+  title: "Entrar",
+  description: "Entre no Tabularium e veja a fila de demandas ordenada por prioridade.",
+  alternates: { canonical: "/login" },
 };
 
 export default function LoginPage() {

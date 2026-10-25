@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   reactCompiler: true,
   images: {
+    formats: ["image/avif", "image/webp"],
+    qualities: [70, 75],
     remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },
 };

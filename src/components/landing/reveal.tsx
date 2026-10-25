@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
+// Fades and slides its content in the first time it scrolls into view. The hidden state lives
+// in CSS (`.reveal` in globals.css) behind `@media (scripting: enabled)`, so the content is
+// never left invisible when JavaScript does not run.
 export function Reveal({
   children,
   className = "",
@@ -14,7 +17,6 @@ export function Reveal({
   from?: "up" | "left" | "right";
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const node = ref.current;
@@ -23,7 +25,7 @@ export function Reveal({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          node.dataset.revealed = "";
           observer.disconnect();
         }
       },
@@ -34,19 +36,12 @@ export function Reveal({
     return () => observer.disconnect();
   }, []);
 
-  const hiddenTransform =
-    from === "up" ? "translateY(28px)" : from === "left" ? "translateX(-28px)" : "translateX(28px)";
-
   return (
     <div
       ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translate(0, 0)" : hiddenTransform,
-        transition: "opacity 700ms ease, transform 700ms ease",
-        transitionDelay: `${delay}ms`,
-      }}
+      className={`reveal ${className}`}
+      data-from={from}
+      style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       {children}
     </div>
